@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oculus Card - Macassar Ebony Final Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .mockup-container {
+            position: relative;
+            width: 1000px;
+            height: 1000px;
+        }
+        .box-base { width: 100%; height: 100%; object-fit: contain; }
+        
+        /* GHOST-OVERLAY CALIBRATED MASTER LOGO */
+        .rings-silver {
+            position: absolute;
+            top: 48.2%;
+            left: 51.2%;
+            width: 115px; /* Fine-tuned scale for perfect match */
+            z-index: 10;
+            /* Vibrant Metallic Silver / Chrome effect */
+            filter: invert(0.8) sepia(1) saturate(0) brightness(1.4) contrast(1.2) drop-shadow(0 0 2px rgba(255,255,255,0.6));
+            transform: translate(-50%, -50%) perspective(1000px) rotateX(42deg) rotateY(-11deg);
+            opacity: 0.95;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <img class="box-base" src="./box_macassar_perfect_template.png">
+        <img class="rings-silver" src="./rings_official.png">
+    </div>
+</body>
+</html>

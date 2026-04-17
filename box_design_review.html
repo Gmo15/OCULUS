@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oculus Card - MASTER PACKAGING REVIEW (STRUCTURAL MATCH)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D2B581;
+            --silver: #E0E0E0;
+            --dark: #050505;
+        }
+        body {
+            background-color: var(--dark);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 1px solid rgba(210, 181, 129, 0.2);
+            padding-bottom: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        h1 { font-family: 'Cinzel', serif; letter-spacing: 0.5em; color: var(--gold); font-size: 28px; }
+        
+        .mockup-container {
+            position: relative;
+            width: 900px;
+            height: 900px;
+            background: #111;
+            margin-bottom: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
+        }
+        .box-base { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* SYNCED LOGO PERSPECTIVE - MATCHING GREEN BOX */
+        .rings-silver {
+            position: absolute;
+            top: 43.5%; /* EXACT MATCH TO GREEN BOX OPTION */
+            left: 44.5%; /* EXACT MATCH TO GREEN BOX OPTION */
+            width: 135px;
+            z-index: 10;
+            filter: invert(0.8) sepia(1) saturate(0) brightness(1.3) contrast(1.1);
+            transform: perspective(1000px) rotateX(25deg);
+            opacity: 0.95;
+            pointer-events: none;
+        }
+
+        .label {
+            position: absolute;
+            background: var(--gold);
+            color: black;
+            padding: 6px 18px;
+            font-weight: bold;
+            font-size: 11px;
+            top: 20px;
+            left: 20px;
+            z-index: 20;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>OCULUS MASTER PACKAGING</h1>
+        <p style="letter-spacing: 5px; opacity: 0.6; font-size: 11px; margin-top: 10px;">STRUCTURAL MATCH REVISON: EBONY VS GREEN</p>
+    </div>
+
+    <!-- OPTION 2: MACASSAR EBONY (MATCHED TO GREEN STRUCTURE) -->
+    <div class="mockup-container">
+        <div class="label">Option 2: Macassar Ebony (Matched Structure)</div>
+        <img class="box-base" src="./box_macassar_perfect_template.png">
+        <img class="rings-silver" src="./rings_official.png">
+    </div>
+
+    <div style="max-width: 800px; margin-top: 40px; color: #888; text-align: center; border-left: 2px solid var(--gold); padding-left: 20px;">
+        <p><strong>REVISIÓN DE CONSISTENCIA:</strong> Esta visualización utiliza la estructura exacta de la caja verde aplicada al Ébano de Macasar. La posición y perspectiva del logo han sido sincronizadas al 100%.</p>
+    </div>
+
+    <footer style="margin-top: 80px; opacity: 0.2; font-size: 10px; letter-spacing: 3px;">© 2026 OCULUS CARD MASTER NETWORK</footer>
+</body>
+</html>

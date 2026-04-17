@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en" class="text-white font-sans antialiased scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Oculus Card - Private Membership</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Absolute Global Font Rule */
+        *, *::before, *::after {
+            font-family: 'Cinzel', serif !important;
+        }
+        
+        /* Specific weights for better readability */
+        p, .font-sans {
+            font-weight: 300;
+        }
+        /* Partner Marquee Rotation */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 40s linear infinite;
+        }
+        .pause-marquee:hover .animate-marquee {
+            animation-play-state: paused;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .mobile-hide { display: none !important; }
+            .mobile-text-small { font-size: 2.2rem !important; line-height: 1.2 !important; }
+            .mobile-text-title { font-size: 1.8rem !important; }
+            .mobile-pt { padding-top: 5rem !important; }
+            .animate-marquee { animation-duration: 25s; gap: 3rem !important; }
+            .marquee-item { height: 2.5rem !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-black flex flex-col items-center selection:bg-[#d2b581] selection:text-black overflow-x-hidden">
+    
+    <div class="fixed inset-0 z-0 bg-[#0a0a0a] overflow-hidden" id="video-slider">
+        <!-- 11 Local Bulletproof Brand Identity HD Videos -->
+        <video src="VIDEO/CHEERS%202.mp4" autoplay loop muted playsinline class="bg-video opacity-85 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 pointer-events-none"></video>
+        <video src="VIDEO/GOLF%202.mp4" autoplay loop muted playsinline class="bg-video opacity-0 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 pointer-events-none"></video>
+        <video src="VIDEO/DINE%201.mp4" autoplay loop muted playsinline class="bg-video opacity-0 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 pointer-events-none"></video>
+        <video src="VIDEO/CHEERS%201.mp4" autoplay loop muted playsinline class="bg-video opacity-0 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 pointer-events-none"></video>
+        <video src="VIDEO/PROPERTY%201.mp4" autoplay loop muted playsinline class="bg-video opacity-0 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 pointer-events-none"></video>
+        <video src="VIDEO/SPA%201.mp4" autoplay loop muted playsinline class="bg-video opacity-0 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 pointer-events-none"></video>
+        <video src="VIDEO/POOL%201.mp4" autoplay loop muted playsinline class="bg-video opacity-0 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 pointer-events-none"></video>
+        <video src="VIDEO/BEACH%201.mp4" autoplay loop muted playsinline class="bg-video opacity-0 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 pointer-events-none"></video>
+        <video src="VIDEO/SHOPPING%201.mp4" autoplay loop muted playsinline class="bg-video opacity-0 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 pointer-events-none"></video>
+        <video src="VIDEO/SPA%202.mp4" autoplay loop muted playsinline class="bg-video opacity-0 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 pointer-events-none"></video>
+        <video src="VIDEO/SUNSET%201.mp4" autoplay loop muted playsinline class="bg-video opacity-0 absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-opacity duration-1000 brightness-[1.6] pointer-events-none"></video>
+
+        <!-- Darkening and blending Overlays -->
+        <div class="absolute inset-0 bg-black/20 mix-blend-multiply pointer-events-none z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#111] pointer-events-none z-10"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="w-full fixed top-0 z-50 bg-black/60 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+        <div class="max-w-[1400px] mx-auto px-8 py-6 flex flex-col lg:flex-row justify-between items-center gap-6">
+            
+            <!-- Logo Section -->
+            <a href="#" class="flex items-center cursor-pointer">
+                <img src="OCULUS%20HORIZONTAL.svg?v=4" alt="Oculus Card Logo" class="h-14 w-auto object-contain">
+            </a>
+
+            <!-- Nav Links & Apply Box -->
+            <div class="flex items-center space-x-6">
+                <!-- Links (Hidden on Mobile) -->
+                <div class="hidden lg:flex items-center space-x-12 text-[13px] tracking-[0.2em] font-medium text-zinc-400">
+                    <a href="#about" class="hover:text-white transition uppercase" data-i18n="nav_about">About</a>
+                    <a href="#beneficios" class="hover:text-white transition uppercase" data-i18n="nav_beneficios">Benefits</a>
+                    <a href="membresia.html" class="hover:text-white transition uppercase" data-i18n="nav_membresia">Membership</a>
+                    <a href="#" onclick="openModal('dining-modal'); return false;" class="hover:text-white transition uppercase" data-i18n="nav_dashboard">Partners</a>
+                </div>
+                
+                <!-- CTA Button (Hidden on Mobile) -->
+                <a href="membresia.html" class="hidden lg:block border border-[#d2b581] text-[#d2b581] px-8 py-3 text-[13px] font-semibold tracking-[0.2em] uppercase hover:bg-[#d2b581] hover:text-black transition" data-i18n="btn_solicitar">
+                    Request Invitation
+                </a>
+                
+                <!-- Language Selector (Always Visible) -->
+                <div class="flex items-center space-x-3 text-[10px] tracking-widest font-semibold text-zinc-500 border-l lg:border-l border-zinc-800 pl-6">
+                    <a href="#" id="lang-en" onclick="setLanguage('en'); return false;" class="hover:text-white transition">EN</a>
+                    <span>|</span>
+                    <a href="#" id="lang-it" onclick="setLanguage('it'); return false;" class="hover:text-white transition">IT</a>
+                    <span>|</span>
+                    <a href="#" id="lang-es" onclick="setLanguage('es'); return false;" class="hover:text-white transition">ES</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Hero Content -->
+    <main class="w-full relative min-h-screen flex flex-col items-center justify-center z-10 px-6 text-center pt-36 md:pt-24">
+        
+            <div class="w-24 h-[2px] bg-[#d2b581] mb-8"></div>
+        
+        <div class="text-[#d2b581] text-[22px] tracking-[0.4em] font-medium uppercase mb-6" data-i18n="hero_landing_kicker">
+            Private Membership
+        </div>
+        
+        <h1 class="font-normal leading-[1.1] mb-8 max-w-7xl drop-shadow-2xl px-4" data-i18n="hero_landing_title">
+            <span class="text-2xl md:text-[3.8rem] block mb-2 opacity-90 tracking-[0.3em] uppercase">Private Access to the</span>
+            <span class="italic font-normal text-[#d2b581] text-4xl md:text-[6.5rem] mobile-text-small">Finest Experiences.</span>
+        </h1>
+        
+        <p class="font-sans text-[15px] md:text-lg text-zinc-300 font-normal tracking-wide max-w-2xl leading-relaxed mb-12 px-6" data-i18n="hero_landing_sub">
+            A curated network of restaurants, hotels and lifestyle destinations for a select group of members.
+        </p>
+        
+        <a href="membresia.html" class="inline-flex items-center px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full transition-all duration-500 relative overflow-hidden group">
+            <span class="relative z-10 text-white font-medium tracking-widest text-sm uppercase" data-i18n="btn_solicitar">REQUEST INVITATION</span>
+            <svg class="relative z-10 w-4 h-4 ml-3 text-white transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+            <div class="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+        </a>
+        
+        <!-- Floating Partner Logos Strip (Automated) -->
+        <div class="mt-28 w-full overflow-hidden pause-marquee relative">
+            <div class="text-[11px] tracking-[0.5em] text-zinc-400 font-bold uppercase mb-12 opacity-80 text-center" data-i18n="curated_partners_kicker">Curated Partners</div>
+            
+            <div id="marquee-inner" class="animate-marquee gap-32 items-center opacity-[0.85]">
+                <!-- Populated automatically by app.js -->
+            </div>
+        </div>
+        </div>
+
+        <!-- Down Arrow Indicator -->
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 opacity-50 cursor-pointer hover:opacity-100 transition">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"></path></svg>
+        </div>
+
+    </main>
+
+    <!-- About Section -->
+    <section id="about" class="w-full py-32 bg-[#0a0a0a] border-t border-zinc-900 relative z-20 flex flex-col items-center justify-center px-6 text-center">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <!-- Gold Line -->
+                <div class="w-24 h-[2px] bg-[#d2b581] mb-8"></div>
+            
+            <div class="text-[#d2b581] text-[22px] tracking-[0.4em] font-medium uppercase mb-6" data-i18n="about_kicker">
+                About Oculus Card
+            </div>
+            
+            <h2 class="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-white font-normal leading-tight mb-12 max-w-none" data-i18n="about_title">
+                Una Membresía Diseñada para Quienes<br>Buscan lo Excepcional
+            </h2>
+            
+            <p class="font-sans text-base md:text-lg text-zinc-400 font-normal tracking-wide max-w-4xl leading-[1.8] mb-14" data-i18n="about_desc">
+                Oculus Card is a private membership that grants its holders preferred benefits and exclusive access to the region's most distinguished restaurants, boutique hotels, and curated lifestyle experiences. We connect discerning individuals with a carefully selected network of partners who share our commitment to excellence.
+            </p>
+            
+            <div class="font-serif italic text-xl md:text-2xl text-zinc-500 font-normal tracking-wide" data-i18n="about_quote">
+                "Not just a card — a key to a world of refined experiences."
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="beneficios" class="w-full py-32 bg-[#111111] border-t border-zinc-900 relative z-20 flex flex-col items-center">
+        <div class="max-w-6xl mx-auto px-6 w-full flex flex-col items-center">
+            
+            <!-- Header -->
+                <div class="w-24 h-[2px] bg-[#d2b581] mb-8"></div>
+            <div class="text-[#d2b581] text-[22px] tracking-[0.4em] font-medium uppercase mb-6" data-i18n="landing_ben_kicker">
+                Member Benefits
+            </div>
+            <h2 class="font-serif text-5xl md:text-7xl text-white font-normal leading-[1.1] mb-20 md:mb-24" data-i18n="landing_ben_title">
+                One Membership.<br><span class="text-[#d2b581] italic font-normal">Unlimited Benefits.</span>
+            </h2>
+
+            <!-- Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+                
+                <!-- Card 1: Dining -->
+                <div onclick="openModal('dining-modal')" class="bg-[#151515] border border-[#222] p-10 flex flex-col items-center text-center transition hover:bg-[#1a1a1a] group cursor-pointer block">
+                    <div class="w-full aspect-[4/3] mb-8 overflow-hidden ring-1 ring-white/5 shadow-2xl relative">
+                        <img src="card_dining.png" alt="Dining Experience" class="w-full h-full object-cover filter grayscale-[50%] blur-[3px] opacity-60 group-hover:grayscale-0 group-hover:blur-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[600ms] ease-out">
+                    </div>
+                    <h3 class="font-serif text-2xl text-white mb-6" data-i18n="landing_ben1_name">Dining</h3>
+                    <p class="font-sans text-[15px] md:text-[15px] text-zinc-400 font-normal leading-[1.8] mb-8" data-i18n="landing_ben1_desc">
+                        Priority reservations, complimentary tastings, and exclusive dining events at the most celebrated restaurants and chef's tables.
+                    </p>
+                    
+                    <!-- Partner Preview -->
+                    <div class="mt-auto pt-6 border-t border-white/5 w-full flex flex-col items-center">
+                        <div class="flex items-center space-x-6 mb-4 opacity-30 grayscale invert">
+                            <span class="font-serif text-xs tracking-tighter">PESCATORE</span>
+                            <span class="font-serif text-xs tracking-tighter">FURCA</span>
+                            <span class="font-serif text-xs tracking-tighter">L'OLIVO</span>
+                        </div>
+                        <div class="text-[10px] tracking-[0.3em] font-semibold text-zinc-600 uppercase" data-i18n="ben1_showing">
+                            showing 3 of 22
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Travel -->
+                <div class="bg-[#151515] border border-[#222] p-10 flex flex-col items-center text-center transition hover:bg-[#1a1a1a] group cursor-pointer block">
+                    <div class="w-full aspect-[4/3] mb-8 overflow-hidden ring-1 ring-white/5 shadow-2xl relative">
+                        <img src="card_travel_v2.png" alt="Travel Experience" class="w-full h-full object-cover filter grayscale-[50%] blur-[3px] opacity-60 group-hover:grayscale-0 group-hover:blur-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[600ms] ease-out">
+                    </div>
+                    <h3 class="font-serif text-2xl text-white mb-6" data-i18n="landing_ben2_name">Travel</h3>
+                    <p class="font-sans text-[15px] md:text-[15px] text-zinc-400 font-normal leading-[1.8] mb-8" data-i18n="landing_ben2_desc">
+                        Preferred rates and upgrades at handpicked boutique hotels, private villas, and unique accommodations across the region's most coveted destinations.
+                    </p>
+                    
+                    <!-- Partner Preview -->
+                    <div class="mt-auto pt-6 border-t border-white/5 w-full flex flex-col items-center">
+                        <div class="flex items-center space-x-6 mb-4 opacity-30 grayscale invert text-[10px] font-serif uppercase tracking-widest">
+                            <span>KURA</span>
+                            <span>BELMAR</span>
+                            <span>SILVESTRE</span>
+                        </div>
+                        <div class="text-[10px] tracking-[0.3em] font-semibold text-zinc-600 uppercase" data-i18n="ben2_showing">
+                            showing 3 of 18
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Lifestyle -->
+                <div class="bg-[#151515] border border-[#222] p-10 flex flex-col items-center text-center transition hover:bg-[#1a1a1a] group cursor-pointer block">
+                    <div class="w-full aspect-[4/3] mb-8 overflow-hidden ring-1 ring-white/5 shadow-2xl relative">
+                        <img src="card_lifestyle_v3.png" alt="Lifestyle Experience" class="w-full h-full object-cover filter grayscale-[50%] blur-[3px] opacity-60 group-hover:grayscale-0 group-hover:blur-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[600ms] ease-out">
+                    </div>
+                    <h3 class="font-serif text-2xl text-white mb-6" data-i18n="landing_ben3_name">Lifestyle</h3>
+                    <p class="font-sans text-[13px] md:text-sm text-zinc-400 font-normal leading-[1.8] mb-8" data-i18n="landing_ben3_desc">
+                        Access to members-only events, wellness retreats, curated adventures, and a concierge service dedicated to crafting unforgettable experiences.
+                    </p>
+
+                    <!-- Partner Preview -->
+                    <div class="mt-auto pt-6 border-t border-white/5 w-full flex flex-col items-center">
+                        <div class="flex items-center space-x-6 mb-4 opacity-30 grayscale invert text-[10px] font-serif uppercase tracking-widest">
+                            <span>BAJA</span>
+                            <span>HELISPA</span>
+                            <span>M-CLUB</span>
+                        </div>
+                        <div class="text-[10px] tracking-[0.3em] font-semibold text-zinc-600 uppercase" data-i18n="ben3_showing">
+                            showing 3 of 15
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="w-full py-40 bg-[#0a0a0a] border-t border-zinc-900 relative z-20 flex flex-col items-center text-center">
+        <div class="max-w-6xl mx-auto px-6 w-full flex flex-col items-center">
+            <div class="text-[#d2b581] text-[22px] tracking-[0.4em] font-medium uppercase mb-8" data-i18n="how_kicker">
+                HOW IT WORKS
+            </div>
+            <h2 class="font-serif text-5xl md:text-7xl text-white font-normal leading-[1.1] mb-24" data-i18n="how_title">
+                Three Simple Steps
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-24 w-full">
+                <!-- Step 01 -->
+                <div class="flex flex-col items-center">
+                    <div class="text-[#d2b581] text-[14px] tracking-[0.3em] font-medium uppercase mb-8" data-i18n="step1_tag">Step 01</div>
+                    <div class="mb-10 text-[#d2b581] opacity-80">
+                        <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-3xl text-white mb-8" data-i18n="step1_name">Apply</h3>
+                    <p class="font-sans text-[15px] text-zinc-400 font-normal leading-relaxed max-w-xs" data-i18n="step1_desc">
+                        Submit your application through our simple online form. Tell us about yourself and your interests.
+                    </p>
+                </div>
+
+                <!-- Step 02 -->
+                <div class="flex flex-col items-center">
+                    <div class="text-[#d2b581] text-[14px] tracking-[0.3em] font-medium uppercase mb-8" data-i18n="step2_tag">Step 02</div>
+                    <div class="mb-10 text-[#d2b581] opacity-80">
+                        <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-3xl text-white mb-8" data-i18n="step2_name">Approval</h3>
+                    <p class="font-sans text-[15px] text-zinc-400 font-normal leading-relaxed max-w-xs" data-i18n="step2_desc">
+                        Our membership committee reviews each application to ensure alignment with our community values.
+                    </p>
+                </div>
+
+                <!-- Step 03 -->
+                <div class="flex flex-col items-center">
+                    <div class="text-[#d2b581] text-[14px] tracking-[0.3em] font-medium uppercase mb-8" data-i18n="step3_tag">Step 03</div>
+                    <div class="mb-10 text-[#d2b581] opacity-80">
+                        <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17.086V19a1 1 0 01-1 1h-2a1 1 0 01-1-1v-2a1 1 0 01.293-.707L12 11.586A6 6 0 1121 9z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-3xl text-white mb-8" data-i18n="step3_name">Access</h3>
+                    <p class="font-sans text-[15px] text-zinc-400 font-normal leading-relaxed max-w-xs" data-i18n="step3_desc">
+                        Receive your Oculus Card and unlock immediate access to our entire network of partners and experiences.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Elite Partnership Section -->
+    <section id="partners-section" class="w-full py-40 bg-[#111111] border-t border-zinc-900 relative z-20 flex flex-col items-center text-center">
+        <div class="max-w-5xl mx-auto px-6 w-full flex flex-col items-center">
+            <div class="w-24 h-[1px] bg-[#d2b581] mb-12"></div>
+            <div class="text-[#d2b581] text-[22px] tracking-[0.4em] font-medium uppercase mb-8" data-i18n="partner_kicker">
+                ELITE PARTNERSHIP
+            </div>
+            <h2 class="font-serif text-5xl md:text-7xl text-white font-normal leading-[1.1] mb-12" data-i18n="partner_title">
+                Become a Partner
+            </h2>
+            <p class="font-sans text-xl text-zinc-400 font-normal tracking-wide max-w-4xl leading-relaxed mb-16" data-i18n="partner_desc">
+                Oculus Card selectively evaluates businesses that offer exceptional value and world-class services to our members. Our partnership program is by invitation only and requires a rigorous alignment with our community's standards of excellence.
+            </p>
+            <a href="#" onclick="openModal('dining-modal'); return false;" class="inline-block bg-[#d2b581] text-black px-12 py-5 text-[15px] font-bold tracking-[0.2em] uppercase hover:bg-white transition-all duration-300" data-i18n="btn_partner_inquiry">
+                SUBMIT PARTNERSHIP INQUIRY
+            </a>
+        </div>
+    </section>
+
+    <!-- Dining Modal -->
+    <div id="dining-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-md opacity-0 transition-opacity duration-500">
+        <div class="relative w-full max-w-2xl bg-[#0a0a0a] border border-[#222] p-8 md:p-14 shadow-2xl transform scale-95 transition-transform duration-500 mx-4" id="dining-modal-content">
+            
+            <!-- Close Button -->
+            <button onclick="closeModal('dining-modal')" class="absolute top-6 right-6 text-zinc-600 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <!-- Header -->
+            <div class="w-12 h-[1px] bg-[#d2b581] mb-6"></div>
+            <h3 class="font-serif text-3xl md:text-4xl text-white mb-2">Gastronomía Exclusiva</h3>
+            <p class="text-zinc-500 text-sm font-normal mb-10 pb-6 border-b border-[#222]">Nuestros restaurantes y aliados del más alto nivel.</p>
+            
+            <!-- Restaurant List -->
+            <div class="space-y-2">
+                
+                <!-- Rest 1 -->
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">L'Olivo Alta Cucina</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Escazú</p>
+                        <p class="text-zinc-400 text-sm font-normal">Italiano refinado de especialidad.</p>
+                    </div>
+                    <div class="hidden sm:block text-[#d2b581] opacity-0 group-hover/item:opacity-100 transition transform translate-x-[-10px] group-hover/item:translate-x-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </div>
+
+                <!-- Rest 2 -->
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">Pescatore</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Escazú</p>
+                        <p class="text-zinc-400 text-sm font-normal">Mariscos de alta gama y ambiente corporativo.</p>
+                    </div>
+                    <div class="hidden sm:block text-[#d2b581] opacity-0 group-hover/item:opacity-100 transition transform translate-x-[-10px] group-hover/item:translate-x-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </div>
+
+                <!-- Rest 3 -->
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">Furca</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Sabana / Rohrmoser</p>
+                        <p class="text-zinc-400 text-sm font-normal">Gastronomía de autor y cortes.</p>
+                    </div>
+                    <div class="hidden sm:block text-[#d2b581] opacity-0 group-hover/item:opacity-100 transition transform translate-x-[-10px] group-hover/item:translate-x-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </div>
+
+                <!-- Rest 4 -->
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">Holligans</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">GAM</p>
+                        <p class="text-zinc-400 text-sm font-normal">Sportbar sofisticado.</p>
+                    </div>
+                    <div class="hidden sm:block text-[#d2b581] opacity-0 group-hover/item:opacity-100 transition transform translate-x-[-10px] group-hover/item:translate-x-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- App Script -->
+    <script>// Simple Language Switcher
+// Record start time of the application
+const appStartTime = new Date().toISOString();
+console.log('Application start time:', appStartTime);
+if (typeof localStorage !== 'undefined') {
+  localStorage.setItem('appStartTime', appStartTime);
+}
+
+const translations = {
+    es: {
+        nav_inicio: "Inicio",
+        nav_about: "Nosotros",
+        nav_beneficios: "Beneficios",
+        nav_membresia: "Membresía",
+        nav_dashboard: "Partners",
+        nav_signin: "Sign In",
+        invite_only: "Por Invitación Solamente",
+        hero_landing_kicker: "MEMBRESÍA PRIVADA",
+        hero_landing_title: "<span class=\"text-3xl md:text-[3.8rem] block mb-2 opacity-90 tracking-widest uppercase\">Acceso Privado a las</span><span class=\"italic font-normal text-[#d2b581] text-5xl md:text-[6.5rem]\">Mejores Experiencias.</span>",
+        hero_landing_sub: "Una red exclusiva de restaurantes, hoteles y destinos para un<br>grupo selecto de miembros.",
+        curated_partners_kicker: "SOCIOS CURADOS",
+        btn_solicitar: "SOLICITAR INVITACIÓN",
+        btn_beneficios: "Ver Beneficios",
+        landing_ben_kicker: "BENEFICIOS PARA MIEMBROS",
+        landing_ben_title: "Una Membresía.<br><span class=\"text-[#d2b581] italic font-normal\">Beneficios Ilimitados.</span>",
+        landing_ben1_name: "Gastronomía",
+        landing_ben1_desc: "Reservas prioritarias, degustaciones de cortesía y eventos culinarios exclusivos.",
+        ben1_showing: "mostrando 3 de 22",
+        landing_ben2_name: "Viajes",
+        landing_ben2_desc: "Tarifas preferenciales y mejoras en hoteles boutique seleccionados.",
+        ben2_showing: "mostrando 3 de 18",
+        landing_ben3_name: "Estilo de Vida",
+        landing_ben3_desc: "Acceso a eventos exclusivos y concierge dedicado.",
+        ben3_showing: "mostrando 3 de 15",
+        about_kicker: "SOBRE OCULUS CARD",
+        about_title: "Una Membresía Diseñada para Quienes<br>Buscan lo Excepcional",
+        about_desc: "Oculus Card es una membresía privada que otorga a sus titulares beneficios preferenciales y acceso exclusivo.",
+        about_quote: "\"No es solo una tarjeta — es la llave a un mundo de experiencias refinadas.\"",
+        how_kicker: "CÓMO FUNCIONA",
+        how_title: "Tres Simples Pasos",
+        step1_tag: "Paso 01",
+        step1_name: "Solicitud",
+        step1_desc: "Envía tu solicitud a través de nuestro sencillo formulario en línea. Cuéntanos sobre ti y tus intereses.",
+        step2_tag: "Paso 02",
+        step2_name: "Aprobación",
+        step2_desc: "Nuestro comité de membresía revisa cada solicitud para asegurar la alineación con nuestros valores comunitarios.",
+        step3_tag: "Paso 03",
+        step3_name: "Acceso",
+        step3_desc: "Recibe tu Oculus Card y desbloquea acceso inmediato a nuestra red completa de socios y experiencias.",
+        partner_kicker: "ALIANZAS ELITE",
+        partner_title: "Conviértete en Socio",
+        partner_desc: "Oculus Card evalúa selectivamente negocios que ofrecen un valor excepcional y servicios de clase mundial.",
+        btn_partner_inquiry: "SOLICITAR VALUACIÓN DE ALIANZA",
+        form_title: "Solicitud de Membresía",
+        form_submit: "Enviar Solicitud"
+    },
+    en: {
+        nav_inicio: "Home",
+        nav_about: "About",
+        nav_beneficios: "Benefits",
+        nav_membresia: "Membership",
+        nav_dashboard: "Partners",
+        nav_signin: "Sign In",
+        invite_only: "By Invitation Only",
+        hero_landing_kicker: "PRIVATE MEMBERSHIP",
+        hero_landing_title: "<span class=\"text-3xl md:text-[3.8rem] block mb-2 opacity-90 tracking-widest uppercase\">Private Access to the</span><span class=\"italic font-normal text-[#d2b581] text-5xl md:text-[6.5rem]\">Finest Experiences.</span>",
+        hero_landing_sub: "A curated network of restaurants, hotels and lifestyle destinations for a<br>select group of members.",
+        curated_partners_kicker: "CURATED PARTNERS",
+        btn_solicitar: "REQUEST INVITATION",
+        btn_beneficios: "See Benefits",
+        landing_ben_kicker: "MEMBER BENEFITS",
+        landing_ben_title: "One Membership.<br><span class=\"text-[#d2b581] italic font-normal\">Unlimited Benefits.</span>",
+        landing_ben1_name: "Dining",
+        landing_ben1_desc: "Priority reservations, complimentary tastings, and exclusive dining events.",
+        ben1_showing: "showing 3 of 22",
+        landing_ben2_name: "Travel",
+        landing_ben2_desc: "Preferred rates and upgrades at handpicked boutique hotels.",
+        ben2_showing: "showing 3 of 18",
+        landing_ben3_name: "Lifestyle",
+        landing_ben3_desc: "Access to members-only events and concierge service.",
+        ben2_showing: "showing 3 of 15",
+        about_kicker: "ABOUT OCULUS CARD",
+        about_title: "A Membership Designed for Those<br>Who Seek the Exceptional",
+        about_desc: "Oculus Card is a private membership that grants its holders preferred benefits and exclusive access.",
+        about_quote: "\"Not just a card — a key to a world of refined experiences.\"",
+        how_kicker: "HOW IT WORKS",
+        how_title: "Three Simple Steps",
+        step1_tag: "Step 01",
+        step1_name: "Apply",
+        step1_desc: "Submit your application through our simple online form. Tell us about yourself and your interests.",
+        step2_tag: "Step 02",
+        step2_name: "Approval",
+        step2_desc: "Our membership committee reviews each application to ensure alignment with our community values.",
+        step3_tag: "Step 03",
+        step3_name: "Access",
+        step3_desc: "Receive your Oculus Card and unlock immediate access to our entire network of partners and experiences.",
+        partner_kicker: "ELITE PARTNERSHIP",
+        partner_title: "Become a Partner",
+        partner_desc: "Oculus Card selectively evaluates businesses that offer exceptional value and world-class services.",
+        btn_partner_inquiry: "SUBMIT PARTNERSHIP INQUIRY",
+        form_title: "Membership Application",
+        form_submit: "Submit Application"
+    },
+    it: {
+        nav_inicio: "Inizio",
+        nav_about: "Chi Siamo",
+        nav_beneficios: "Vantaggi",
+        nav_membresia: "Affiliazione",
+        nav_dashboard: "Partner",
+        nav_signin: "Accedi",
+        invite_only: "Solo Su Invito",
+        hero_landing_kicker: "AFFILIAZIONE PRIVATA",
+        hero_landing_title: "<span class=\"text-3xl md:text-[3.8rem] block mb-2 opacity-90 tracking-widest uppercase\">Accesso Privato alle</span><span class=\"italic font-normal text-[#d2b581] text-5xl md:text-[6.5rem]\">Migliori Esperienze.</span>",
+        hero_landing_sub: "Una rete curata di ristoranti, hotel e destinazioni lifestyle per un<br>grupo esclusivo di membri.",
+        curated_partners_kicker: "PARTNER SELEZIONATI",
+        btn_solicitar: "RICHIEDI INVITO",
+        btn_beneficios: "Vedi Vantaggi",
+        landing_ben_kicker: "VANTAGGI PER I MEMBRI",
+        landing_ben_title: "Un'Affiliazione.<br><span class=\"text-[#d2b581] italic font-normal\">Vantaggi Illimitati.</span>",
+        landing_ben1_name: "Ristorazione",
+        landing_ben1_desc: "Prenotaciones prioritarie e degustaciones gratuitas.",
+        ben1_showing: "mostrando 3 de 22",
+        landing_ben2_name: "Viaggi",
+        landing_ben2_desc: "Tarifas preferenciales e upgrade en boutique hotel.",
+        ben2_showing: "mostrando 3 de 18",
+        landing_ben3_name: "Stile di Vita",
+        landing_ben3_desc: "Accesso a eventos riservati e concierge dedicado.",
+        ben3_showing: "mostrando 3 de 15",
+        about_kicker: "SU OCULUS CARD",
+        about_title: "Un'Affiliazione Progettata per Chi<br>Cerca l'Eccezionale",
+        about_desc: "Oculus Card è un'affiliazione privada que garantiza ai suoi titolari vantaggi preferenciales e accesso esclusivo.",
+        about_quote: "\"Non solo una carta — una chiave per un mondo di experiencias raffinate.\"",
+        how_kicker: "COME FUNZIONA",
+        how_title: "Tre Semplici Passaggi",
+        step1_tag: "Passo 01",
+        step1_name: "Candidatura",
+        step1_desc: "Invia la tua candidatura tramite il nostro modulo online. Raccontaci di te e dei tuoi intereses.",
+        step2_tag: "Passo 02",
+        step2_name: "Approvazione",
+        step2_desc: "Il nostro comitato esamina ogni domanda per garantire l'allineamento con i nostri valores comunitarios.",
+        step3_tag: "Passo 03",
+        step3_name: "Accesso",
+        step3_desc: "Ricevi la tua Oculus Card e sblocca l'accesso immediato a tutta la nuestra rete di partner ed experienze.",
+        partner_kicker: "PARTNERSHIP ÉLITE",
+        partner_title: "Diventa un Partner",
+        partner_desc: "Oculus Card valuta selettivamente le aziende que ofrecen un valor excepcional y servicios de clase mundial.",
+        btn_partner_inquiry: "INVIA RICHIESTA DI VALUTAZIONE",
+        form_title: "Richiesta de Affiliazione",
+        form_submit: "Invia Domanda"
+    }
+};
+
+/**
+ * OCULUS ELITE PARTNERS
+ * Simply add your partners here. All will be rendered with Impeccable White aesthetics.
+ */
+const partners = [
+    { name: 'Oculus Partner', logo: 'partner_circle.png', height: 'h-24' },
+    { name: 'Face & Body', logo: 'partner_facebody.png', height: 'h-14' },
+    { name: 'Luxury Villas', logo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' fill='white'><text x='10' y='50' font-family='serif' font-size='30' font-weight='bold'>LUXURY VILLAS</text><text x='10' y='70' font-family='sans-serif' font-size='12' letter-spacing='8'>COSTA RICA</text></svg>", height: 'h-14' },
+    { name: 'Kura Boutique', text: 'KURA BOUTIQUE' },
+    { name: 'Furca Elite', text: 'FURCA ELITE' }
+];
+
+function setLanguage(lang) {
+    if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('lang', lang);
+    }
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            el.innerHTML = translations[lang][key];
+        }
+    });
+
+    // Highlight active language in UI
+    ['en', 'es', 'it'].forEach(l => {
+        const el = document.getElementById('lang-' + l);
+        if (el) {
+            if (l === lang) {
+                el.classList.add('text-white');
+                el.classList.remove('text-zinc-500');
+            } else {
+                el.classList.remove('text-white');
+                el.classList.add('text-zinc-500');
+            }
+        }
+    });
+}
+
+function renderMarquee() {
+    const container = document.getElementById('marquee-inner');
+    if (!container) return;
+
+    // Clear previous items to avoid duplications
+    container.innerHTML = '';
+
+    // Build the HTML for one set
+    const buildSetHtml = () => {
+        const isMobile = window.innerWidth < 768;
+        let html = '<div class="flex ' + (isMobile ? 'gap-12' : 'gap-32') + ' items-center shrink-0">';
+        partners.forEach(p => {
+            if (p.logo) {
+                const imgFilter = p.filter || 'brightness-0 invert';
+                const style = p.filter ? `filter: ${imgFilter}; mix-blend-mode: screen;` : `filter: ${imgFilter};`;
+                html += `<img src="${p.logo}" alt="${p.name}" class="${p.height || 'h-20'} w-auto object-contain marquee-item" style="${style}">`;
+            } else if (p.text) {
+                html += `<span class="font-serif text-2xl tracking-widest whitespace-nowrap text-white">${p.text}</span>`;
+            }
+        });
+        html += '</div>';
+        return html;
+    };
+
+    const oneSet = buildSetHtml();
+    // Inject twice for seamless loop
+    container.innerHTML = oneSet + oneSet;
+}
+
+// Initial Load
+if(typeof window !== 'undefined') {
+    const savedLang = localStorage.getItem('lang') || 'en';
+    setLanguage(savedLang);
+    
+    // Initial marquee build
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderMarquee);
+    } else {
+        renderMarquee();
+    }
+}
+</script>
+    <script>
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            const content = document.getElementById(id + '-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // Small delay to allow display:flex to mount before animating opacity
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            const content = document.getElementById(id + '-content');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 500);
+        }
+    </script>
+    <!-- Sub-navigation interactions -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Video Slider Logic
+            const videos = document.querySelectorAll('.bg-video');
+            let currentIdx = 0;
+            
+            // Start playing all videos infinitely in background
+            videos.forEach(v => {
+                v.play().catch(err => console.log('Autoplay issue', err));
+            });
+            const PADDING = 1200; // 1.2s crossfade overlap 
+            
+            function cycleNext() {
+                const currentVideo = videos[currentIdx];
+                // Get the real duration of the video, fallback to 5500ms if unknown (NaN)
+                const durationReal = (currentVideo.duration && !isNaN(currentVideo.duration) && currentVideo.duration > 2) 
+                    ? (currentVideo.duration * 1000) 
+                    : 5500;
+                    
+                // Leave video on screen for its entirety minus the overlap
+                const timeToView = durationReal - PADDING;
+
+                setTimeout(() => {
+                    videos[currentIdx].classList.remove('opacity-85');
+                    videos[currentIdx].classList.add('opacity-0');
+                    
+                    let nextIdx = (currentIdx + 1) % videos.length;
+                    
+                    // Automatically rewind the next video to exactly the beginning so it NEVER starts mid-way
+                    videos[nextIdx].currentTime = 0;
+                    
+                    videos[nextIdx].classList.remove('opacity-0');
+                    videos[nextIdx].classList.add('opacity-85');
+                    
+                    currentIdx = nextIdx;
+                    cycleNext();
+                }, timeToView);
+            }
+            // Trigger logic immediately
+            setTimeout(cycleNext, 500);
+
+            // Sticky Navigation logic
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-black/80', 'backdrop-blur-md');
+                } else {
+                    header.classList.remove('bg-black/80', 'backdrop-blur-md');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

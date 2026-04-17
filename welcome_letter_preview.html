@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oculus Card - Onboarding Letter Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D2B581;
+            --dark: #0A0A0A;
+            --gray: #1A1A1A;
+            --text-gray: #A0A0A0;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            padding: 100px 0;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .letter-paper {
+            background: #ffffff;
+            color: #1a1a1a;
+            padding: 80px 100px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+            position: relative;
+            border-top: 10px solid var(--gold);
+        }
+
+        .header-logo {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .ring-logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: grayscale(1);
+        }
+
+        .brand-name {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            letter-spacing: 0.3em;
+            color: #000;
+            display: block;
+        }
+
+        .greeting {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+            font-weight: 300;
+        }
+
+        .content p {
+            margin-bottom: 25px;
+        }
+
+        .content strong {
+            font-weight: 600;
+            color: #000;
+        }
+
+        .next-steps {
+            background: #f9f9f9;
+            padding: 30px;
+            border-left: 4px solid var(--gold);
+            margin: 40px 0;
+        }
+
+        .next-steps h4 {
+            margin: 0 0 10px 0;
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+        }
+
+        .signature {
+            margin-top: 60px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .signature .name {
+            display: block;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.2em;
+            margin-top: 5px;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            background: var(--gold);
+            color: black;
+            border: none;
+            padding: 12px 25px;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(210,181,129,0.3);
+        }
+
+        @media (max-width: 600px) {
+            .letter-paper {
+                padding: 40px;
+            }
+            .greeting {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="letter-paper" id="letter">
+            <div class="header-logo">
+                <svg width="80" height="50" viewBox="0 0 160 80" style="margin-bottom: 15px;">
+                    <circle cx="60" cy="40" r="30" fill="none" stroke="#D2B581" stroke-width="4"/>
+                    <circle cx="100" cy="40" r="30" fill="none" stroke="#D2B581" stroke-width="4"/>
+                </svg>
+                <span class="brand-name">OCULUS CARD</span>
+            </div>
+
+            <h1 class="greeting">Bienvenido al Círculo Interno.</h1>
+
+            <div class="content">
+                <p>Estimado <strong>Guillermo G. Carvajal</strong>,</p>
+                
+                <p>Es un honor para nosotros darle la bienvenida oficial a <strong>Oculus Card</strong>. Al recibir esta caja, usted deja de ser un invitado para convertirse en un guardián de nuestra comunidad más selectiva.</p>
+
+                <p>Usted ha sido elegido no solo por su trayectoria, sino por compartir la visión de excelencia que define a nuestra marca. La tarjeta que sostiene es mucho más que un objeto de diseño; es su llave maestra a experiencias diseñadas para ser vividas por unos pocos.</p>
+
+                <div class="next-steps">
+                    <h4>SU VIAJE COMIENZA AQUÍ:</h4>
+                    Para activar su acceso total al portal privado, beneficios exclusivos y servicios de conserjería, escanee el código QR único ubicado al reverso de su tarjeta e ingrese su código de validación.
+                </div>
+
+                <p>Este es el inicio de una relación definida por el privilegio y la exclusividad. Estamos ansiosos por acompañarle en cada paso de este nuevo estándar de excelencia.</p>
+            </div>
+
+            <div class="signature">
+                Atentamente,
+                <span class="name">THE OCULUS EXECUTIVE BOARD</span>
+                <small style="opacity: 0.5; font-size: 10px; letter-spacing: 1px;">A MASTERPIECE OF ACCESS</small>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

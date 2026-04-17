@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oculus Card - Wallet Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px;
+        }
+        .tiers-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1100px;
+        }
+        .card-preview {
+            position: relative;
+            width: 320px;
+            height: 520px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+        }
+        .card-preview:hover {
+            transform: translateY(-20px) scale(1.02);
+            border-color: rgba(210, 181, 129, 0.3);
+            box-shadow: 0 60px 120px rgba(210, 181, 129, 0.1);
+        }
+        
+        /* THE SHIMMER/BRILLO EFFECT */
+        .card-preview::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -150%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.0) 45%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.0) 55%,
+                transparent 100%
+            );
+            transform: rotate(45deg);
+            animation: shimmer 5s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { left: -150%; }
+            30% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .card-content {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Cropping the cards from your SVG using object-fit concept */
+        .crop-black { background-image: url('WALLET%20VERSION.svg'); background-position: 0% 50%; background-size: 300% auto; }
+        .crop-silver { background-image: url('WALLET%20VERSION.svg'); background-position: 48% 50%; background-size: 300% auto; }
+        .crop-white { background-image: url('WALLET%20VERSION.svg'); background-position: 97% 50%; background-size: 300% auto; }
+
+        .tier-label {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="font-serif text-2xl mb-16 tracking-[0.8em] opacity-60 uppercase text-center">Oculus Card / Multi-Tier Identity</h1>
+
+    <div class="tiers-container">
+        <!-- BLACK TIER -->
+        <div>
+            <div class="card-preview">
+                <div class="card-content crop-black"></div>
+            </div>
+            <div class="tier-label">Founder / Midnight</div>
+        </div>
+
+        <!-- SILVER TIER -->
+        <div>
+            <div class="card-preview">
+                <div class="card-content crop-silver"></div>
+            </div>
+            <div class="tier-label">Executive / Silver</div>
+        </div>
+
+        <!-- WHITE TIER -->
+        <div>
+            <div class="card-preview">
+                <div class="card-content crop-white"></div>
+            </div>
+            <div class="tier-label">Associate / Blanc</div>
+        </div>
+    </div>
+
+    <div class="mt-20 text-zinc-600 text-[10px] tracking-widest text-center">
+        PROTOTYPE V1.0 - ALL VISUAL ASSETS ARE VECTOR BASED (SVG)
+    </div>
+
+</body>
+</html>

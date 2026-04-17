@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Oculus - ENGINEERING HIGHLIGHT (NOTCH DETAIL)</title>
+    <style>
+        body { background: #050505; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px; }
+        .stage { position: relative; width: 1000px; height: 1000px; background: #111; box-shadow: 0 40px 80px rgba(0,0,0,0.9); }
+        .master-img { width: 100%; height: 100%; object-fit: contain; position: absolute; top:0; left:0; }
+        
+        /* ENGINEERING HIGHLIGHT MASK */
+        .highlight-layer {
+            filter: brightness(2.2) contrast(1.2) saturate(0.5);
+            clip-path: polygon(5% 50%, 95% 50%, 95% 95%, 5% 95%); /* Focal focus on the bottom deck area */
+            opacity: 0.95;
+        }
+
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { font-size: 24px; color: #D2B581; letter-spacing: 2px; text-transform: uppercase; }
+        .header p { opacity: 0.7; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>VISTA DE INGENIERÍA: DECK 2</h1>
+        <p>Aclarado técnico localizado para visualizar hendiduras y slots de invitaciones.</p>
+    </div>
+    <div class="stage">
+        <!-- BASE MASTER -->
+        <img class="master-img" src="./MASTER_ULTIMATE_DOUBLE_DECK.png">
+        
+        <!-- ENLIGHTENED DECK 2 MASK -->
+        <img class="master-img highlight-layer" src="./MASTER_ULTIMATE_DOUBLE_DECK.png">
+    </div>
+</body>
+</html>

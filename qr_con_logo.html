@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { background: #0a0a0a; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .qr-container {
+            position: relative;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(210,181,129,0.3);
+        }
+        .qr-image {
+            width: 800px;
+            height: 800px;
+            display: block;
+        }
+        .logo-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px; /* Tamaño seguro para que el QR siga funcionando */
+            height: 180px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        .logo-img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="qr-container">
+        <!-- Official QR Generation -->
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=800x800&data=OCULUS-FOUNDER-GGC" class="qr-image" alt="QR Background">
+        
+        <!-- Logo Overlaid in Center -->
+        <div class="logo-overlay">
+            <img src="https://antigravity-media.storage.googleapis.com/media__1775727772846.png" class="logo-img" alt="Oculus Logo">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Oculus Wallet Simulator</title>
+    <style>
+        body {
+            margin: 0; padding: 0; background: #000; color: #fff; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex; flex-direction: column; align-items: center; height: 100vh; overflow: hidden;
+            -webkit-user-select: none; user-select: none;
+        }
+        .header {
+            width: 100%; padding: 20px 0; text-align: center; font-size: 24px; font-weight: 600; letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        
+        .scale-wrapper {
+            display: flex; justify-content: center; align-items: flex-start;
+            transform-origin: top center;
+            width: 218px;
+            height: 338px;
+        }
+
+        .card-wrapper {
+            position: relative;
+            width: 218px;
+            height: 338px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #080808;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* CRITICAL FIX FOR SAFARI ANIMATION CLIPPING */
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            isolation: isolate;
+        }
+
+        .svg-container {
+            width: 728.5px;
+            height: 338px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+        }
+
+        .gloss {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: sweep 4s infinite;
+            z-index: 10;
+            pointer-events: none;
+            mix-blend-mode: color-dodge;
+        }
+
+        @keyframes sweep {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+
+        .controls {
+            display: flex; gap: 15px; margin-top: 40px; z-index: 20;
+        }
+        .dot {
+            width: 12px; height: 12px; border-radius: 50%; border: 2px solid #555; background: transparent; cursor: pointer; transition: 0.3s;
+        }
+        .dot.active {
+            background: #fff; border-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Wallet</div>
+    
+    <div class="scale-wrapper" id="scale-wrapper">
+        <div class="card-wrapper" id="pass">
+            <!-- Identical math bounds as original HTML -->
+            <object data="WALLET%20VERSION.svg" type="image/svg+xml" class="svg-container" id="svg-obj"></object>
+            <div class="gloss"></div>
+        </div>
+    </div>
+
+    <div class="controls" id="dots-container">
+        <div class="dot active" onclick="setCard(0)"></div>
+        <div class="dot" onclick="setCard(1)"></div>
+        <div class="dot" onclick="setCard(2)"></div>
+    </div>
+
+    <p style="margin-top: 30px; font-size: 14px; color: #888; text-align: center; padding: 0 20px;">
+        Desliza o toca abajo para cambiar de tarjeta.
+    </p>
+
+    <script>
+        function resize() {
+            const wrapper = document.getElementById('scale-wrapper');
+            const scale = (window.innerWidth * 0.85) / 218;
+            wrapper.style.transform = `scale(${Math.min(scale, 1.8)}) translateZ(0)`;
+            
+            // Adjust margin of dots so they don't get covered by scaled wrapper
+            const usedHeight = 338 * Math.min(scale, 1.8);
+            const extra = usedHeight - 338;
+            document.getElementById('dots-container').style.marginTop = (40 + extra) + 'px';
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        let current = 0;
+        const svgObj = document.getElementById('svg-obj');
+        const offsets = ['0px', '-255.6px', '-511px'];
+        
+        function setCard(index) {
+            current = index;
+            svgObj.style.left = offsets[index];
+            document.querySelectorAll('.dot').forEach((d, i) => {
+                d.className = i === index ? 'dot active' : 'dot';
+            });
+        }
+
+        let startX = 0;
+        const scaleWrapper = document.getElementById('scale-wrapper');
+        scaleWrapper.addEventListener('touchstart', e => startX = e.changedTouches[0].screenX);
+        scaleWrapper.addEventListener('touchend', e => {
+            let diffX = e.changedTouches[0].screenX - startX;
+            if (diffX < -50 && current < 2) setCard(current + 1);
+            if (diffX > 50 && current > 0) setCard(current - 1);
+        });
+    </script>
+</body>
+</html>

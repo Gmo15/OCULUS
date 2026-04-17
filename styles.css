@@ -1,0 +1,108 @@
+/* Premium Styling for Oculus Card Mockup */
+body {
+    font-family: 'Outfit', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Hide scrollbar for horizontal scrolling sections */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* 3D Perspective Utilities */
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.preserve-3d {
+    transform-style: preserve-3d;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+/* The card's glass/metallic effect */
+.glass-card {
+    /* Base dark metallic gradient */
+    background: linear-gradient(135deg, #27272a 0%, #18181b 50%, #09090b 100%);
+    /* Subtle noise/texture would go here in production */
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.5),
+        0 10px 30px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shimmer animation on load */
+@keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(200%) rotate(30deg); }
+}
+
+.glass-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.03) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    transform: rotate(30deg);
+    pointer-events: none;
+    animation: shimmer 6s infinite linear;
+}
+
+/* OTP Glow Animation */
+@keyframes border-glow {
+    0%, 100% { border-color: rgba(16, 185, 129, 0.2); }
+    50% { border-color: rgba(16, 185, 129, 0.6); box-shadow: 0 0 15px rgba(16, 185, 129, 0.1); }
+}
+
+.otp-active {
+    animation: border-glow 2s infinite;
+}
+
+/* Form Autofill Overrides for Dark Mode */
+/* Form Autofill Overrides for Dark Mode */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active,
+input:not(:placeholder-shown):not([type="submit"]):not([type="button"]),
+select:valid {
+    background-color: #19150c !important;
+    -webkit-box-shadow: 0 0 0 50px #19150c inset !important;
+    -webkit-text-fill-color: #d2b581 !important;
+    color: #d2b581 !important;
+    border-color: #d2b581 !important;
+    border-radius: 0.75rem !important;
+    background-clip: padding-box !important;
+    outline: none !important;
+    transition: background-color 0s, border-color 0.3s;
+    caret-color: #d2b581;
+}
+
+select:valid {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23d2b581%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E") !important;
+}
+
+/* Star Rating Interaction */
+.star {
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.1s ease;
+}
+
+.star:active {
+    transform: scale(1.4);
+}
+
+.star:hover {
+    transform: scale(1.2);
+}

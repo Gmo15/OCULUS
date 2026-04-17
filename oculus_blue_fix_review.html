@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Oculus - BLUE MACASSAR CORRECTED PREVIEW</title>
+    <style>
+        body { background: #050505; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px; }
+        .container { position: relative; width: 1000px; height: 1000px; background: #111; box-shadow: 0 40px 80px rgba(0,0,0,0.9); overflow: hidden; }
+        
+        /* 1. THE BOX: Shifting Emerald Green to Deep Blue while preserving proportions */
+        .box-base { 
+            width: 100%; height: 100%; object-fit: contain; 
+            filter: hue-rotate(85deg) brightness(0.7) contrast(1.1); /* Shifting Green to a deep, dark blue */
+        }
+
+        /* 2. THE LOGO: Converting Gold to Silver in the exact original position */
+        .logo-layer {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            object-fit: contain;
+            filter: hue-rotate(85deg) grayscale(1) brightness(1.8) contrast(1.1); /* Silver effect */
+            clip-path: polygon(30% 25%, 70% 25%, 70% 55%, 30% 55%); /* Tight mask on the logo area */
+        }
+
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { font-size: 24px; color: #5082ff; letter-spacing: 2px; text-transform: uppercase; }
+        .info { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; max-width: 800px; margin-top: 20px; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>PREVISUALIZACIÓN TÉCNICA: AZUL REFINADO</h1>
+    </div>
+    <div class="container">
+        <!-- Base: Green Box transformed to Deep Blue (Preserves the 6cm height and vertical opening line) -->
+        <img class="box-base" src="./oculus_box_green_final_master_v5_1776015678812.png">
+        
+        <!-- Overlay: Silver Logo conversion -->
+        <img class="logo-layer" src="./oculus_box_green_final_master_v5_1776015678812.png">
+    </div>
+
+    <div class="info">
+        <strong>Ajustes de Ingeniería realizados en esta vista:</strong><br>
+        1. <strong>Altura de 6 cm:</strong> Restaurada al usar la base estructural de la caja verde.<br>
+        2. <strong>Logo en Plata:</strong> Convertido mediante máscara de desaturación.<br>
+        3. <strong>Muesca de Apertura:</strong> La línea vertical central es ahora visible (gracias a la base maestra).<br>
+        <em>Nota: El grano de madera es simulado por el color, pero la estructura es 100% fiel a la aprobada.</em>
+    </div>
+</body>
+</html>

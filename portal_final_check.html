@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Oculus Hub Final Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #000; color: #fff; display: flex; flex-direction: column; align-items: center; padding: 50px; font-family: sans-serif; }
+        .grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 40px; }
+        @media (min-width: 768px) {
+            .grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .card-wrapper {
+            position: relative;
+            width: 218px;
+            height: 338px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #080808;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .svg-container {
+            width: 728.5px;
+            height: 338px;
+            position: absolute;
+            top: 0px;
+        }
+        .founder-pos { left: 0px; }
+        .executive-pos { left: -255.6px; }
+        .associate-pos { left: -511px; }
+        
+        .gloss {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+            background-size: 200% 200%;
+            animation: sweep 4s infinite linear;
+            z-index: 20;
+            pointer-events: none;
+            mix-blend-mode: color-dodge;
+        }
+        @keyframes sweep {
+            0% { background-position: -200% -200%; }
+            100% { background-position: 200% 200%; }
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 12px;
+            background: #0a0a0a;
+            border: 1px solid #d2b581;
+            color: #d2b581;
+            border-radius: 8px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: block;
+        }
+        .btn:hover {
+            background: #d2b581;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="letter-spacing: 15px; margin-bottom: 60px; opacity: 0.5; font-weight: 300;">OCULUS WALLET</h1>
+    <p style="margin-bottom: 40px; color: #a1a1aa; text-align: center;">Escanea el código QR de cada tarjeta para instalarla en tu celular.</p>
+    <div class="grid">
+        <!-- FOUNDER -->
+        <div class="flex flex-col items-center">
+            <div class="card-wrapper">
+                <div class="gloss"></div>
+                <object data="WALLET%20VERSION.svg" type="image/svg+xml" class="svg-container founder-pos"></object>
+            </div>
+            <a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=OCULUS_APPLE_WALLET_FOUNDER" target="_blank" class="btn">Instalar Founder (Black)</a>
+        </div>
+        
+        <!-- EXECUTIVE -->
+        <div class="flex flex-col items-center">
+            <div class="card-wrapper">
+                <div class="gloss" style="animation-delay: 1.3s;"></div>
+                <object data="WALLET%20VERSION.svg" type="image/svg+xml" class="svg-container executive-pos"></object>
+            </div>
+            <a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=OCULUS_APPLE_WALLET_EXECUTIVE" target="_blank" class="btn">Instalar Executive (Silver)</a>
+        </div>
+        
+        <!-- ASSOCIATE -->
+        <div class="flex flex-col items-center">
+            <div class="card-wrapper">
+                <div class="gloss" style="animation-delay: 2.6s;"></div>
+                <object data="WALLET%20VERSION.svg" type="image/svg+xml" class="svg-container associate-pos"></object>
+            </div>
+            <a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=OCULUS_APPLE_WALLET_ASSOCIATE" target="_blank" class="btn">Instalar Associate (White)</a>
+        </div>
+    </div>
+</body>
+</html>

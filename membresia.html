@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="es" class="bg-zinc-950 text-white font-sans antialiased scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Oculus Card - Exclusive Membership</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Absolute Global Font Rule */
+        * {
+            font-family: 'Cinzel', serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-view-smoothing: grayscale;
+        }
+        
+        /* Specific fonts for form elements to avoid Cinzel's spacing issues in widgets */
+        input, select, textarea, button, .iti * {
+            font-family: 'Outfit', sans-serif !important;
+        }
+        
+        /* Specific weights for better readability */
+        p, .font-sans {
+            font-weight: 300;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 400 !important;
+        }
+        /* Luxury Dark Theme Overrides for Intl-Tel-Input */
+        .iti { width: 100%; display: block; }
+        .iti__dropdown-content { 
+            background-color: #0c0c0c !important; 
+            border: 1px solid rgba(255,255,255,0.1) !important; 
+            color: white !important;
+            border-radius: 1rem; 
+            margin-top: 10px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.9) !important;
+            z-index: 1000 !important;
+        }
+        .iti__country { padding: 12px 16px !important; transition: background 0.2s; }
+        .iti__country:hover, .iti__country--highlight { background-color: rgba(255,255,255,0.08) !important; }
+        .iti__selected-flag { background: transparent !important; padding-left: 12px !important; border-radius: 0.75rem 0 0 0.75rem; }
+        .iti__selected-dial-code { color: #d2b581 !important; font-weight: 600; font-size: 0.9rem; margin-left: 8px; }
+        .iti__arrow { border-top-color: #d2b581 !important; }
+        .iti__arrow--up { border-bottom-color: #d2b581 !important; }
+        .iti__globe { background-color: #333 !important; } /* Fallback icon */
+        .hide-scrollbar {
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-zinc-950 flex flex-col items-center selection:bg-zinc-700 overflow-x-hidden">
+    
+    <!-- Navigation -->
+    <nav class="w-full fixed top-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50">
+        <div class="max-w-[1400px] mx-auto px-8 md:px-16 flex items-center justify-between py-4">
+            <!-- Brand / Logo -->
+            <a href="index.html" class="flex flex-col">
+                <img src="OCULUS HORIZONTAL.svg?v=4" alt="Oculus Card" class="h-11 w-auto object-contain">
+            </a>
+            <!-- Nav Links -->
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-zinc-300 hover:text-white transition cursor-pointer text-sm tracking-widest uppercase" data-i18n="nav_inicio">Inicio</a>
+                <a href="index.html#beneficios" class="text-zinc-300 hover:text-white transition cursor-pointer text-sm tracking-widest uppercase" data-i18n="nav_beneficios">Beneficios</a>
+                <a href="membresia.html" class="text-white transition cursor-pointer text-sm tracking-widest uppercase font-bold" data-i18n="nav_membresia">Membresía</a>
+                <a href="dashboard_vip.html" class="text-zinc-300 hover:text-white transition cursor-pointer text-sm tracking-widest uppercase" data-i18n="nav_dashboard">Partners</a>
+            </div>
+            
+            <!-- Lang & Login -->
+            <div class="flex items-center space-x-6">
+                <!-- Language Selector (Ordered EN, IT, ES) -->
+                <div class="hidden sm:flex space-x-3 text-sm tracking-widest font-semibold text-zinc-500">
+                    <a href="#" id="lang-en" onclick="setLanguage('en'); return false;" class="hover:text-white transition">EN</a>
+                    <span>|</span>
+                    <a href="#" id="lang-it" onclick="setLanguage('it'); return false;" class="hover:text-white transition">IT</a>
+                    <span>|</span>
+                    <a href="#" id="lang-es" onclick="setLanguage('es'); return false;" class="hover:text-white transition">ES</a>
+                </div>
+                <!-- Login Link to Dashboard -->
+                <!-- Login Button (Gold Square) -->
+                <a href="#" onclick="openModal('signin-modal'); return false;" class="px-8 py-2 text-[12px] font-semibold border border-[#d2b581] text-[#d2b581] tracking-[0.2em] uppercase hover:bg-[#d2b581] hover:text-black transition-all duration-300" data-i18n="nav_signin">
+                    Sign In
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="w-full relative min-h-screen flex flex-col items-center justify-center pt-24 pb-12 px-6">
+        
+        <!-- Ambient Glow Elements -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-emerald-900/20 mix-blend-screen filter blur-[120px] pointer-events-none rounded-full"></div>
+
+        <div class="max-w-[1200px] w-full flex flex-col md:flex-row items-center justify-between gap-16 z-10 px-8">
+            
+            <div class="flex-1 text-center md:text-left">
+                <!-- Badge Kicker -->
+                <div class="inline-flex items-center space-x-3 bg-zinc-900/40 rounded-full px-5 py-2 mb-8 border border-white/5 w-max pointer-events-none">
+                    <span class="w-2 h-2 bg-zinc-400 rounded-full"></span>
+                    <span class="text-xs tracking-[0.3em] text-zinc-400 uppercase font-medium" data-i18n="invite_only">By Invitation Only</span>
+                </div>
+
+                <!-- Main Hero Title (Adjusted to 3.8rem for ideal balance) -->
+                <h1 class="font-serif text-4xl md:text-[3.8rem] leading-[1.05] text-white mb-10" data-i18n="hero_title">
+                    THE ART OF<br>
+                    <span class="text-[#d2b581]">ABSOLUTE ACCESS.</span>
+                </h1>
+
+                <!-- Hero Description -->
+                <p class="font-sans text-[11px] md:text-[13px] tracking-[0.25em] leading-relaxed text-zinc-400 uppercase max-w-lg mb-12" data-i18n="hero_desc">
+                    Oculus Card is the definitive lifestyle membership.<br>
+                    Privileged access, unbeatable benefits,<br>
+                    and exclusive experiences.
+                </p>
+
+                <!-- Action Buttons Container -->
+                <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
+                    <button onclick="openApplyModal()" class="px-12 py-5 border border-[#d2b581] text-[#d2b581] font-bold text-[13px] tracking-[0.3em] uppercase hover:bg-[#d2b581] hover:text-black transition-all duration-300" data-i18n="btn_solicitar">
+                        REQUEST INVITATION
+                    </button>
+                    <button onclick="toggleBenefitsMenu()" class="px-10 py-5 border border-[#d2b581] text-[#d2b581] font-bold text-[13px] tracking-[0.15em] hover:bg-[#d2b581]/10 transition-all duration-300" data-i18n="btn_beneficios">
+                        See Benefits
+                    </button>
+                </div>
+            </div>
+
+            <!-- Benefits Preview Full-Screen Modal -->
+            <div id="benefitsPreviewMenu" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/90 backdrop-blur-2xl opacity-0 transition-opacity duration-500">
+                <div class="relative w-full max-w-4xl bg-[#0a0a0a] border border-[#d2b581]/20 p-10 md:p-20 shadow-2xl transform scale-95 transition-transform duration-500 mx-4" id="benefits-modal-content">
+                    
+                    <!-- Close Button -->
+                    <button onclick="toggleBenefitsMenu()" class="absolute top-8 right-8 text-zinc-500 hover:text-white transition-colors duration-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <!-- Category 1: Dining -->
+                        <div class="text-center">
+                            <h4 class="text-[#d2b581] text-xs tracking-[0.3em] font-bold uppercase mb-8" data-i18n="landing_ben1_name">Gastronomía</h4>
+                            <div class="flex flex-col space-y-4 text-white/90 text-[18px] font-serif uppercase tracking-[0.1em]">
+                                <span class="hover:text-[#d2b581] transition-colors cursor-default">DORIS</span>
+                                <span class="hover:text-[#d2b581] transition-colors cursor-default">PESCATORE</span>
+                                <span class="hover:text-[#d2b581] transition-colors cursor-default">FURCA</span>
+                            </div>
+                            <div class="mt-8 text-[11px] tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="ben1_showing">showing 3 of 22</div>
+                        </div>
+
+                        <!-- Category 2: Experiences -->
+                        <div class="text-center border-y md:border-y-0 md:border-x border-white/5 py-12 md:py-0 md:px-6">
+                            <h4 class="text-[#d2b581] text-xs tracking-[0.3em] font-bold uppercase mb-8" data-i18n="landing_ben2_name">Experiencias</h4>
+                            <div class="flex flex-col space-y-4 text-white/90 text-[18px] font-serif uppercase tracking-[0.1em]">
+                                <span class="hover:text-[#d2b581] transition-colors cursor-default">KURA</span>
+                                <span class="hover:text-[#d2b581] transition-colors cursor-default">NAYARA</span>
+                                <span class="hover:text-[#d2b581] transition-colors cursor-default">SILVESTRE</span>
+                            </div>
+                            <div class="mt-8 text-[11px] tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="ben2_showing">showing 3 of 18</div>
+                        </div>
+
+                        <!-- Category 3: Lifestyle -->
+                        <div class="text-center">
+                            <h4 class="text-[#d2b581] text-xs tracking-[0.3em] font-bold uppercase mb-8" data-i18n="landing_ben3_name">Lifestyle</h4>
+                            <div class="flex flex-col space-y-4 text-white/90 text-[18px] font-serif uppercase tracking-[0.1em]">
+                                <span class="hover:text-[#d2b581] transition-colors cursor-default">BAJA</span>
+                                <span class="hover:text-[#d2b581] transition-colors cursor-default">HELISPA</span>
+                                <span class="hover:text-[#d2b581] transition-colors cursor-default">M-CLUB</span>
+                            </div>
+                            <div class="mt-8 text-[11px] tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="ben3_showing">showing 3 of 15</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive 3D Card Display (Precision adjusted) -->
+            <div class="flex-1 w-full flex justify-center md:justify-start md:ml-6 perspective-1000">
+                <div class="card-container w-full max-w-[280px] aspect-[0.63] relative rounded-2xl preserve-3d floating-card transition-transform duration-700 ease-out" id="heroCard">
+                    <!-- Extracted SVG Image Texture -->
+                    <img src="3d NEW FINAL LOGO.svg?v=15" alt="Oculus Card Design Alternate" class="w-full h-full object-cover rounded-[20px] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8)] border-[3px] border-[#cbd5e1] pointer-events-none">
+                    
+                    <!-- Shine effect overlay -->
+                    <div class="absolute inset-0 rounded-[20px] bg-gradient-to-tr from-transparent via-white/40 to-transparent pointer-events-none transition-opacity duration-300 opacity-0" id="heroShine"></div>
+                </div>
+            </div>
+        </div>
+            
+        </div>
+        
+    </main>
+
+    <!-- Value Prop Section -->
+    <section id="benefits" class="w-full py-32 bg-black border-t border-zinc-900 relative">
+        <div class="max-w-7xl mx-auto px-6 z-10 relative">
+            <h2 class="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-white font-normal text-center mb-24" data-i18n="ben_title">
+                Una Membresía. <br> <span class="text-[#d2b581] italic">Beneficios Ilimitados.</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Benefit 1: Dining -->
+                <div onclick="openModal('dining-modal')" class="group bg-zinc-900/30 p-10 rounded-[45px] border border-white/5 hover:bg-zinc-800/40 transition-all duration-500 cursor-pointer flex flex-col items-center text-center">
+                    <div class="w-full aspect-[4/3] mb-10 overflow-hidden rounded-[30px] ring-1 ring-white/10 shadow-2xl relative">
+                        <img src="card_dining.png" alt="Dining Experience" class="w-full h-full object-cover filter grayscale-[40%] blur-[1px] opacity-70 group-hover:grayscale-0 group-hover:blur-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                    </div>
+                    <h3 class="font-serif text-3xl text-white mb-6" data-i18n="ben1_title">Gastronomía</h3>
+                    <p class="text-zinc-400 font-light leading-relaxed text-lg" data-i18n="ben1_desc">
+                        Reservas prioritarias, degustaciones de cortesía y eventos exclusivos en los mejores restaurantes del país.
+                    </p>
+                    <div class="mt-8 pt-8 border-t border-white/5 w-full flex flex-col items-center">
+                        <div class="flex items-center space-x-6 mb-4 opacity-40 grayscale invert text-sm font-serif tracking-[0.2em]">
+                            <span>PESCATORE</span>
+                            <span>FURCA</span>
+                            <span>L'OLIVO</span>
+                        </div>
+                        <div class="text-[11px] tracking-[0.3em] font-medium text-zinc-500 uppercase" data-i18n="ben1_showing">showing 3 of 22</div>
+                    </div>
+                </div>
+                
+                <!-- Benefit 2: Experiences -->
+                <div onclick="openModal('experiences-modal')" class="group bg-zinc-900/30 p-10 rounded-[45px] border border-white/5 hover:bg-zinc-800/40 transition-all duration-500 cursor-pointer flex flex-col items-center text-center">
+                    <div class="w-full aspect-[4/3] mb-10 overflow-hidden rounded-[30px] ring-1 ring-white/10 shadow-2xl relative">
+                        <img src="card_travel_v2.png" alt="Travel Experience" class="w-full h-full object-cover filter grayscale-[40%] blur-[1px] opacity-70 group-hover:grayscale-0 group-hover:blur-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                    </div>
+                    <h3 class="font-serif text-3xl text-white mb-6" data-i18n="ben2_title">Experiencias</h3>
+                    <p class="text-zinc-400 font-light leading-relaxed text-lg" data-i18n="ben2_desc">
+                        Tarifas preferenciales, upgrades constantes y acceso a los hoteles boutique más cautivadores del mundo.
+                    </p>
+                    <div class="mt-8 pt-8 border-t border-white/5 w-full flex flex-col items-center">
+                        <div class="flex items-center space-x-6 mb-4 opacity-40 grayscale invert text-sm font-serif tracking-[0.2em]">
+                            <span>KURA</span>
+                            <span>NAYARA</span>
+                            <span>SILVESTRE</span>
+                        </div>
+                        <div class="text-[11px] tracking-[0.3em] font-medium text-zinc-500 uppercase" data-i18n="ben2_showing">showing 3 of 18</div>
+                    </div>
+                </div>
+
+                <!-- Benefit 3: Lifestyle -->
+                <div onclick="openModal('lifestyle-modal')" class="group bg-zinc-900/30 p-10 rounded-[45px] border border-white/5 hover:bg-zinc-800/40 transition-all duration-500 cursor-pointer flex flex-col items-center text-center">
+                    <div class="w-full aspect-[4/3] mb-10 overflow-hidden rounded-[30px] ring-1 ring-white/10 shadow-2xl relative">
+                        <img src="card_lifestyle_v3.png" alt="Lifestyle Experience" class="w-full h-full object-cover filter grayscale-[40%] blur-[1px] opacity-70 group-hover:grayscale-0 group-hover:blur-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                    </div>
+                    <h3 class="font-serif text-3xl text-white mb-6" data-i18n="ben3_title">Lifestyle</h3>
+                    <p class="text-zinc-400 font-light leading-relaxed text-lg" data-i18n="ben3_desc">
+                        Acceso a eventos privados, concierge personal 24/7 y experiencias curadas diseñadas a medida para socios.
+                    </p>
+                    <div class="mt-8 pt-8 border-t border-white/5 w-full flex flex-col items-center">
+                        <div class="flex items-center space-x-6 mb-4 opacity-40 grayscale invert text-sm font-serif tracking-[0.2em]">
+                            <span>BAJA</span>
+                            <span>HELISPA</span>
+                            <span>M-CLUB</span>
+                        </div>
+                        <div class="text-[11px] tracking-[0.3em] font-medium text-zinc-500 uppercase" data-i18n="ben3_showing">showing 3 of 15</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / Apply Section -->
+    <section id="apply" class="w-full py-24 bg-zinc-950 relative border-t border-zinc-900">
+        <div class="max-w-6xl mx-auto px-6 z-10 relative">
+            <div class="bg-gradient-to-br from-zinc-900 to-black p-10 md:p-16 rounded-[40px] border border-zinc-800 shadow-2xl text-center relative overflow-hidden">
+                <!-- Decorative glow -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-zinc-700/10 rounded-full filter blur-[80px]"></div>
+                
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6 relative z-10" data-i18n="apply_title">
+                    Solicita <span class="text-[#d2b581]">Acceso</span>
+                </h2>
+                <p class="text-zinc-400 text-lg mb-10 max-w-none mx-auto relative z-10 font-light leading-relaxed" data-i18n="apply_desc">
+                    Oculus Card opera estrictamente por invitación o postulación directa.<br>Envía tu solicitud para ser considerado por nuestro comité de membresías.
+                </p>
+
+                <button onclick="openApplyModal()" class="w-full sm:w-auto px-12 py-5 border border-[#d2b581] text-[#d2b581] font-bold tracking-[0.2em] uppercase hover:bg-[#d2b581] hover:text-black transition-all duration-300" data-i18n="btn_apply">
+                    Request Invitation
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script for floating card effect -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const card = document.getElementById('heroCard');
+            if(card) {
+                document.addEventListener('mousemove', (e) => {
+                    const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                    const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                    card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+                });
+            }
+        });
+    </script>
+    <!-- 3D Interactions Script -->
+    <script src="app.js?v=5"></script>
+    <!-- Intl Tel Input Script -->
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
+
+    <!-- Application Modal -->
+    <div id="applyModal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <!-- Backdrop -->
+        <div id="applyBackdrop" class="absolute inset-0 bg-black/70 backdrop-blur-2xl opacity-0 transition-opacity duration-500 cursor-pointer" onclick="closeApplyModal()"></div>
+        
+        <!-- Modal Content -->
+        <div id="applyContent" class="relative w-full max-w-2xl bg-[#0a0a0a] border border-white/10 rounded-3xl shadow-[0_0_100px_rgba(0,0,0,0.8)] opacity-0 translate-y-8 transition-all duration-500 flex flex-col max-h-[90vh] overflow-y-auto mx-4 hide-scrollbar">
+            
+            <!-- Close Button -->
+            <button onclick="closeApplyModal()" class="absolute top-6 right-6 z-50 text-zinc-500 hover:text-white transition w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <!-- Header -->
+            <div class="p-10 pb-6 border-b border-white/5 text-center relative">
+                <img src="OCULUS HORIZONTAL.svg?v=4" alt="Oculus Card" class="h-10 w-auto mx-auto mb-6 opacity-80">
+                <h3 class="text-2xl font-bold tracking-widest uppercase text-white mb-2" data-i18n="form_title">Membership Application</h3>
+                </p>
+
+                <!-- DEV TOOL: MAGIC AUTOFILL (Remove for production) -->
+                <button onclick="magicAutofill()" class="absolute top-6 left-6 text-zinc-600 hover:text-[#d2b581] transition flex items-center space-x-2 text-[10px] uppercase tracking-widest font-bold group">
+                    <svg class="w-4 h-4 group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>Magic Autofill</span>
+                </button>
+
+                <!-- Modal Language Switcher -->
+                <div class="flex justify-center items-center space-x-3 mt-5 pt-1 text-sm tracking-widest font-bold text-zinc-500 uppercase">
+                    <a href="#" onclick="setLanguage('en'); return false;" class="hover:text-white transition cursor-pointer">EN</a>
+                    <span>|</span>
+                    <a href="#" onclick="setLanguage('it'); return false;" class="hover:text-white transition cursor-pointer">IT</a>
+                    <span>|</span>
+                    <a href="#" onclick="setLanguage('es'); return false;" class="hover:text-white transition cursor-pointer">ES</a>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="p-10 pt-8" id="formContainer">
+                <form id="membershipForm" class="space-y-6 w-full" onsubmit="event.preventDefault(); submitApplication();">
+                    
+                    <!-- STEP 1: Professional Details -->
+                    <div id="formStep1" class="space-y-6 transition-all duration-300">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_step1">Step 1 of 3: Primary Member</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_fname">First Name</label>
+                                <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="John">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_lname">Last Name</label>
+                                <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="Doe">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_email">Professional Email</label>
+                            <input type="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="john@company.com">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_id_country">Issuing Country</label>
+                                <select required class="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-3 text-zinc-400 focus:outline-none focus:border-[#d2b581] transition-all appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2371717a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[center_right_1rem]">
+                                    <option value="" disabled selected data-i18n="form_select_country">Select Country</option>
+                                    <option value="CR">Costa Rica</option>
+                                    <option value="US">United States</option>
+                                    <option value="MX">Mexico</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="ES">Spain</option>
+                                    <option value="IT">Italy</option>
+                                    <option value="FR">France</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="CH">Switzerland</option>
+                                    <option value="AE">United Arab Emirates</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_id_num">ID / Passport Number</label>
+                                <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all uppercase" placeholder="P0000000">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_company">Company</label>
+                                <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="Company Name">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_role">Title / Role</label>
+                                <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="CEO, Founder, Manager">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_phone">Phone Number</label>
+                            <input type="tel" id="phoneMain" required class="w-full bg-white/5 border border-white/10 rounded-xl py-3 text-white placeholder-zinc-700 focus:outline-none focus:border-[#d2b581] transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_dob">Date of Birth</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <input type="text" id="dobMM" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="MM" required class="w-full bg-white/5 border border-white/10 rounded-xl px-2 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all text-center" oninput="this.value=this.value.replace(/[^0-9]/g,''); if(parseInt(this.value)>12) this.value='12'; if(this.value.length >= 2) document.getElementById('dobDD').focus();">
+                                <input type="text" id="dobDD" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="DD" required class="w-full bg-white/5 border border-white/10 rounded-xl px-2 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all text-center" oninput="this.value=this.value.replace(/[^0-9]/g,''); if(parseInt(this.value)>31) this.value='31'; if(this.value.length >= 2) document.getElementById('dobYYYY').focus();" onkeydown="if(event.key === 'Backspace' && this.value === '') document.getElementById('dobMM').focus();">
+                                <input type="text" id="dobYYYY" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="YYYY" required class="w-full bg-white/5 border border-white/10 rounded-xl px-2 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all text-center" oninput="this.value=this.value.replace(/[^0-9]/g,'');" onkeydown="if(event.key === 'Backspace' && this.value === '') document.getElementById('dobDD').focus();">
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-white/5 space-y-2">
+                            <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase font-bold text-[#d2b581]" data-i18n="form_invcode">Invitation Code <span class="text-zinc-700 lowercase font-normal tracking-normal">(If applicable)</span></label>
+                            <input type="text" id="invCode" maxlength="9" oninput="formatInvCode(this)" class="w-full bg-[#1a1a1a] border border-[#333] rounded-xl px-4 py-3 text-[#d2b581] font-mono tracking-widest uppercase placeholder-zinc-700 focus:outline-none focus:border-[#d2b581] transition-all" placeholder="XXXX-XXXX">
+                        </div>
+
+                        <div class="pt-6">
+                            <button type="button" onclick="goToStep(2)" class="w-full py-4 rounded-xl bg-[#d2b581] text-black font-bold tracking-widest uppercase hover:bg-[#b09055] transition-colors duration-300" data-i18n="form_continue">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Secondary Card (+1) (Hidden initially) -->
+                    <div id="formStep2" class="hidden space-y-6 transition-all duration-300">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-sm tracking-[0.2em] font-medium text-[#d2b581] uppercase font-bold" data-i18n="form_step2">Step 2 of 3: Secondary Card (+1)</span>
+                            <button type="button" onclick="goToStep(1)" class="text-sm tracking-widest uppercase text-zinc-400 hover:text-white transition" data-i18n="form_back">Back</button>
+                        </div>
+                        <p class="text-sm text-zinc-500 italic mb-4" data-i18n="form_secondary_desc">Your membership includes a complimentary secondary card for a partner or associate.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_fname">First Name</label>
+                                <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="Jane">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_lname">Last Name</label>
+                                <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="Doe">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_email_sec">Email</label>
+                            <input type="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="jane@company.com">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_id_country">Issuing Country</label>
+                                <select required class="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-3 text-zinc-400 focus:outline-none focus:border-[#d2b581] transition-all appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2371717a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[center_right_1rem]">
+                                    <option value="" disabled selected data-i18n="form_select_country">Select Country</option>
+                                    <option value="CR">Costa Rica</option>
+                                    <option value="US">United States</option>
+                                    <option value="MX">Mexico</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="ES">Spain</option>
+                                    <option value="IT">Italy</option>
+                                    <option value="FR">France</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="CH">Switzerland</option>
+                                    <option value="AE">United Arab Emirates</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_id_num">ID / Passport Number</label>
+                                <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all uppercase" placeholder="P0000000">
+                            </div>
+                        </div>
+
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_phone">Phone Number</label>
+                                <input type="tel" id="phoneSecondary" required class="w-full bg-white/5 border border-white/10 rounded-xl py-3 text-white placeholder-zinc-700 focus:outline-none focus:border-[#d2b581] transition-all">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_dob">Date of Birth</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <input type="text" id="dobMM2" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="MM" required class="w-full bg-white/5 border border-white/10 rounded-xl px-2 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all text-center" oninput="this.value=this.value.replace(/[^0-9]/g,''); if(parseInt(this.value)>12) this.value='12'; if(this.value.length >= 2) document.getElementById('dobDD2').focus();">
+                                    <input type="text" id="dobDD2" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="DD" required class="w-full bg-white/5 border border-white/10 rounded-xl px-2 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all text-center" oninput="this.value=this.value.replace(/[^0-9]/g,''); if(parseInt(this.value)>31) this.value='31'; if(this.value.length >= 2) document.getElementById('dobYYYY2').focus();" onkeydown="if(event.key === 'Backspace' && this.value === '') document.getElementById('dobMM2').focus();">
+                                    <input type="text" id="dobYYYY2" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="YYYY" required class="w-full bg-white/5 border border-white/10 rounded-xl px-2 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all text-center" oninput="this.value=this.value.replace(/[^0-9]/g,'');" onkeydown="if(event.key === 'Backspace' && this.value === '') document.getElementById('dobDD2').focus();">
+                                </div>
+                            </div>
+
+                        <div class="pt-6">
+                            <button type="button" onclick="goToStep(3)" class="w-full py-4 rounded-xl bg-[#d2b581] text-black font-bold tracking-widest uppercase hover:bg-[#b09055] transition-colors duration-300" data-i18n="form_continue">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Payment Details (Hidden initially) -->
+                    <div id="formStep3" class="hidden space-y-6 transition-all duration-300">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_step3">Step 3 of 3: Secure Payment</span>
+                            <button type="button" onclick="goToStep(2)" class="text-sm tracking-widest uppercase text-zinc-400 hover:text-white transition" data-i18n="form_back">Back</button>
+                        </div>
+
+                        <!-- Shipping Information -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-white/5 pb-2 mb-4">
+                                <h4 class="text-[#d2b581] font-bold tracking-widest text-sm uppercase" data-i18n="form_shipping_title">Delivery Address</h4>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_address">Street Address</label>
+                                <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="123 Luxury Ave">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_apt">Apt / Suite <span class="text-zinc-700 lowercase font-normal tracking-normal">(Optional)</span></label>
+                                    <input type="text" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="Penthouse 1">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_city">City</label>
+                                    <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="New York">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_state">State / Province</label>
+                                    <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="NY">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_zip">Postal Code</label>
+                                    <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="10001">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_country_bill">Country</label>
+                                    <select required class="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-3 text-zinc-400 focus:outline-none focus:border-[#d2b581] transition-all appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2371717a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[center_right_1rem]">
+                                        <option value="" disabled selected data-i18n="form_select_country">Select Country</option>
+                                        <option value="CR">Costa Rica</option>
+                                        <option value="US">United States</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="FR">France</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="OTHER">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-3 pt-2">
+                                <input type="checkbox" id="sameAddress" checked class="w-5 h-5 rounded-full appearance-none border border-white/20 bg-white/5 checked:bg-[#d2b581] checked:border-[#d2b581] focus:outline-none transition-all cursor-pointer relative after:content-['✓'] after:absolute after:text-black after:text-[10px] after:font-black after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:opacity-0 checked:after:opacity-100 shrink-0" onchange="document.getElementById('billingGrid').classList.toggle('hidden', this.checked); const inputs = document.getElementById('billingGrid').querySelectorAll('input, select'); inputs.forEach(i => i.required = !this.checked);">
+                                <label for="sameAddress" class="text-sm text-zinc-400 cursor-pointer select-none" data-i18n="form_same_address">Billing address is the same as delivery address</label>
+                            </div>
+                        </div>
+
+                        <!-- Billing Grid (Hidden by default) -->
+                        <div id="billingGrid" class="hidden space-y-4 pt-4 mt-4 border-t border-white/5">
+                            <h4 class="text-[#d2b581] font-bold tracking-widest text-sm uppercase pb-2 border-b border-white/5 mb-4" data-i18n="form_billing_only">Billing Address</h4>
+                            
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_address">Street Address</label>
+                                <input type="text" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="123 Luxury Ave">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_apt">Apt / Suite <span class="text-zinc-700 lowercase font-normal tracking-normal">(Optional)</span></label>
+                                    <input type="text" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="Penthouse 1">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_city">City</label>
+                                    <input type="text" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="New York">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_state">State / Province</label>
+                                    <input type="text" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="NY">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_zip">Postal Code</label>
+                                    <input type="text" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] focus:ring-1 focus:ring-[#d2b581] transition-all" placeholder="10001">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_country_bill">Country</label>
+                                    <select class="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-3 text-zinc-400 focus:outline-none focus:border-[#d2b581] transition-all appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2371717a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[center_right_1rem]">
+                                        <option value="" disabled selected data-i18n="form_select_country">Select Country</option>
+                                        <option value="CR">Costa Rica</option>
+                                        <option value="US">United States</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="FR">France</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="OTHER">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="text-[#d2b581] font-bold tracking-widest text-sm uppercase border-b border-white/5 pb-2 mt-8 mb-4 border-t pt-6" data-i18n="form_payment_title">Secure Payment Details</h4>
+
+                        <!-- Payment Fields -->
+                        <div class="bg-[#111] border border-white/10 rounded-2xl p-6 space-y-5">
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_card_name">Name on Card</label>
+                                <input type="text" required class="w-full bg-transparent border-b border-zinc-800 pb-2 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] transition-all" placeholder="JOHN DOE">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_card_num">Card Number</label>
+                                <div class="flex items-center space-x-2 border-b border-zinc-800 pb-2 focus-within:border-[#d2b581] transition-all">
+                                    <svg class="w-5 h-5 text-zinc-500" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+                                    <input type="text" id="cardNumberInput" maxlength="19" required class="w-full bg-transparent text-white placeholder-zinc-600 focus:outline-none tracking-widest" placeholder="0000 0000 0000 0000" oninput="formatCardNum(this)">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-6 pt-2">
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_card_exp">Expiration</label>
+                                    <input type="text" id="cardExpiryInput" maxlength="7" required class="w-full bg-transparent border-b border-zinc-800 pb-2 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] transition-all tracking-widest" placeholder="MM / YY" oninput="formatExpiry(this)">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm tracking-[0.2em] font-medium text-zinc-500 uppercase" data-i18n="form_card_cvc">CVC</label>
+                                    <input type="text" maxlength="4" required class="w-full bg-transparent border-b border-zinc-800 pb-2 text-white placeholder-zinc-600 focus:outline-none focus:border-[#d2b581] transition-all tracking-widest" placeholder="•••" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                                </div>
+                            </div>
+                            <!-- Auto-Renewal Checkbox -->
+                            <div class="flex items-center space-x-3 pt-4 border-t border-white/5">
+                                <input type="checkbox" id="autoRenewal" checked class="w-5 h-5 rounded-full appearance-none border border-white/20 bg-white/5 checked:bg-[#d2b581] checked:border-[#d2b581] focus:outline-none transition-all cursor-pointer relative after:content-['✓'] after:absolute after:text-black after:text-[10px] after:font-black after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:opacity-0 checked:after:opacity-100 shrink-0">
+                                <label for="autoRenewal" class="text-sm text-zinc-400 cursor-pointer select-none" data-i18n="form_auto_renew">Enable automatic membership renewal</label>
+                            </div>
+                        </div>
+
+                        <!-- Disclosure -->
+                        <div class="bg-zinc-900/50 p-4 border border-zinc-800 rounded-xl mt-6 space-y-4">
+                            <p class="text-sm text-zinc-400 font-light leading-relaxed tracking-wide text-center" data-i18n="form_disclosure">
+                                Upon approval, you will be charged US$149.99 + TAXES, which includes your first year of Membership. You can cancel after your initial term at any time by email at billing@oculuscard.com.
+                            </p>
+                            
+                            <div class="flex items-start space-x-3 pt-4 border-t border-zinc-800/50">
+                                <input type="checkbox" id="termsCheck" required class="w-5 h-5 mt-0.5 rounded-full appearance-none border border-white/20 bg-white/5 checked:bg-[#d2b581] checked:border-[#d2b581] focus:outline-none transition-all cursor-pointer relative after:content-['✓'] after:absolute after:text-black after:text-[10px] after:font-black after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:opacity-0 checked:after:opacity-100 shrink-0">
+                                <label for="termsCheck" class="text-sm text-zinc-400 cursor-pointer select-none leading-relaxed" data-i18n="form_terms_check">
+                                    By checking this box, I confirm that I accept the <a href="terms.html" class="text-[#d2b581] underline hover:text-white transition-colors" target="_blank">Terms of Membership</a>. I understand if my application is approved, I will be charged US$149.99+taxes for the first year of Membership, which is non-refundable. My Membership will renew annually for US$149.99+taxes starting 1 year from the date I am approved.
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <button type="button" onclick="submitApplication()" class="w-full py-4 rounded-xl bg-[#d2b581] text-black font-bold tracking-widest uppercase hover:bg-[#b09055] transition-colors duration-300" data-i18n="form_submit">
+                                Submit Application
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <p class="text-center text-sm tracking-widest text-zinc-600 mt-4 uppercase" data-i18n="form_secure">Secure & Confidential</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4">
+        <div id="successBackdrop" class="absolute inset-0 bg-black/80 backdrop-blur-xl opacity-0 transition-opacity duration-500"></div>
+        <div id="successContent" class="relative w-full max-w-md bg-zinc-900 border border-[#d2b581]/30 rounded-3xl p-8 text-center opacity-0 translate-y-8 transition-all duration-500">
+            <div class="w-16 h-16 bg-[#d2b581]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-8 h-8 text-[#d2b581]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4 tracking-widest uppercase" data-i18n="success_title">Request Received</h3>
+            <p id="successIdDisplay" class="text-[#d2b581] font-mono text-lg mb-4 tracking-tighter bg-white/5 py-2 rounded-lg border border-white/5"></p>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-8" data-i18n="success_desc">
+                Your request has been received successfully. You will receive a confirmation email with your management number. No charges will be made until your application is approved.
+            </p>
+            <button onclick="closeSuccessModal()" class="w-full py-4 rounded-xl bg-[#d2b581] text-black font-bold tracking-widest uppercase hover:bg-[#b09055] transition-colors duration-300" data-i18n="btn_finish">
+                Finish
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Logic -->
+    <script>
+        let currentStep = 1;
+
+        let itiMain, itiSecondary;
+
+        function initIntlTel() {
+            const phoneMain = document.querySelector("#phoneMain");
+            const phoneSecondary = document.querySelector("#phoneSecondary");
+
+            if (phoneMain && !itiMain) {
+                itiMain = window.intlTelInput(phoneMain, {
+                    initialCountry: "cr",
+                    loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/utils.js",
+                    separateDialCode: true,
+                    autoPlaceholder: "aggressive",
+                    preferredCountries: ["cr", "us", "it", "es"]
+                });
+                
+                // Add 4-4 segment formatting
+                phoneMain.addEventListener('input', function() {
+                    let val = this.value.replace(/\D/g, '');
+                    if (val.length > 4) {
+                        this.value = val.substring(0, 4) + ' ' + val.substring(4, 8);
+                    } else {
+                        this.value = val;
+                    }
+                });
+            }
+
+            if (phoneSecondary && !itiSecondary) {
+                itiSecondary = window.intlTelInput(phoneSecondary, {
+                    initialCountry: "cr",
+                    loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/utils.js",
+                    separateDialCode: true,
+                    autoPlaceholder: "aggressive",
+                    preferredCountries: ["cr", "us", "it", "es"]
+                });
+
+                // Add 4-4 segment formatting
+                phoneSecondary.addEventListener('input', function() {
+                    let val = this.value.replace(/\D/g, '');
+                    if (val.length > 4) {
+                        this.value = val.substring(0, 4) + ' ' + val.substring(4, 8);
+                    } else {
+                        this.value = val;
+                    }
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Pre-init if visible, but mostly we'll do it on modal open
+            if (!document.getElementById('applyModal').classList.contains('hidden')) {
+                initIntlTel();
+            }
+        });
+
+        function openApplyModal() {
+            const modal = document.getElementById('applyModal');
+            const backdrop = document.getElementById('applyBackdrop');
+            const content = document.getElementById('applyContent');
+            
+            // Reset to step 1 on open
+            document.getElementById('formStep3').classList.add('hidden');
+            document.getElementById('formStep2').classList.add('hidden');
+            document.getElementById('formStep1').classList.remove('hidden');
+            currentStep = 1;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Initialize or Refresh Intl-Tel-Input when modal is visible
+            setTimeout(initIntlTel, 100);
+
+            // Trigger animations
+            requestAnimationFrame(() => {
+                backdrop.classList.remove('opacity-0');
+                backdrop.classList.add('opacity-100');
+                content.classList.remove('opacity-0', 'translate-y-8');
+                content.classList.add('opacity-100', 'translate-y-0');
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeApplyModal() {
+            const modal = document.getElementById('applyModal');
+            const backdrop = document.getElementById('applyBackdrop');
+            const content = document.getElementById('applyContent');
+            
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+            content.classList.remove('opacity-100', 'translate-y-0');
+            content.classList.add('opacity-0', 'translate-y-8');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+                
+                // Reset form to step 1 automatically when completely closed
+                document.getElementById('formStep3').classList.add('hidden');
+                document.getElementById('formStep2').classList.add('hidden');
+                document.getElementById('formStep1').classList.remove('hidden');
+                currentStep = 1;
+            }, 500); // Wait for transition
+        }
+
+        // Stepper Logic
+        function goToStep(n) {
+            // Validate ONLY visible fields in Current Step to avoid browser errors
+            if (n > currentStep) {
+                const stepInputs = document.querySelectorAll(`#formStep${currentStep} input[required]`);
+                let isValid = true;
+                for (let input of stepInputs) {
+                    if (!input.checkValidity()) {
+                        input.reportValidity();
+                        isValid = false;
+                        break;
+                    }
+                }
+                if (!isValid) return;
+            }
+            
+            // Hide all steps
+            document.getElementById('formStep1').classList.add('hidden');
+            document.getElementById('formStep2').classList.add('hidden');
+            document.getElementById('formStep3').classList.add('hidden');
+            
+            // Show target
+            document.getElementById(`formStep${n}`).classList.remove('hidden');
+            currentStep = n;
+            
+            // Re-apply translations specifically since DOM classes mutated
+            const lang = localStorage.getItem('lang') || 'en';
+            setLanguage(lang);
+        }
+
+        // Auto-format Invitation Code
+        function formatInvCode(input) {
+            // Strip any character that is not a letter or number, and make uppercase
+            let val = input.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+            if (val.length > 4) {
+                // Inject the dash automatically
+                val = val.substring(0, 4) + '-' + val.substring(4, 8);
+            }
+            input.value = val;
+        }
+
+        function toggleBenefitsMenu() {
+            const menu = document.getElementById('benefitsPreviewMenu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+                document.body.style.overflow = 'hidden'; // Lock scroll
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0', 'scale-95');
+                    menu.classList.add('opacity-100', 'scale-100');
+                }, 10);
+            } else {
+                menu.classList.remove('opacity-100', 'scale-100');
+                menu.classList.add('opacity-0', 'scale-95');
+                document.body.style.overflow = ''; // Unlock scroll
+                setTimeout(() => {
+                    menu.classList.remove('flex');
+                    menu.classList.add('hidden');
+                }, 500);
+            }
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('benefitsPreviewMenu').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('benefitsPreviewMenu')) {
+                toggleBenefitsMenu();
+            }
+        });
+
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            const content = document.getElementById(id + '-content');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden'; // Lock scroll
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modal.classList.add('opacity-100');
+                    if (content) {
+                        content.classList.remove('scale-95');
+                        content.classList.add('scale-100');
+                    }
+                }, 10);
+            }
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            const content = document.getElementById(id + '-content');
+            if (modal) {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0');
+                document.body.style.overflow = ''; // Unlock scroll
+                if (content) {
+                    content.classList.remove('scale-100');
+                    content.classList.add('scale-95');
+                }
+                setTimeout(() => {
+                    modal.classList.remove('flex');
+                    modal.classList.add('hidden');
+                }, 500);
+            }
+        }
+
+
+
+        // Auto-format Card Number (XXXX XXXX XXXX XXXX)
+        function formatCardNum(input) {
+            let val = input.value.replace(/\s/g, "").replace(/\D/g, "");
+            let formatted = val.match(/.{1,4}/g);
+            input.value = formatted ? formatted.join(" ") : "";
+        }
+
+        // Auto-format Expiry (MM / YY) and Validate
+        function formatExpiry(input) {
+            let val = input.value.replace(/\D/g, "");
+            if (val.length > 2) {
+                let month = val.substring(0, 2);
+                let year = val.substring(2, 4);
+                if (parseInt(month) > 12) month = "12";
+                if (parseInt(month) === 0) month = "01";
+                if (year.length === 2 && parseInt(year) < 26) year = "26";
+                input.value = month + " / " + year;
+            } else {
+                if (val.length === 2) {
+                   if (parseInt(val) > 12) val = "12";
+                   if (parseInt(val) === 0) val = "01";
+                }
+                input.value = val;
+            }
+        }
+
+        // Final Submission Sequence
+        function submitApplication() {
+            // Validation: Check Terms and Conditions
+            const termsCheck = document.getElementById('termsCheck');
+            if (termsCheck && !termsCheck.checked) {
+                // Flash the checkbox container to alert the user
+                const container = termsCheck.closest('div');
+                if (container) {
+                    container.classList.add('ring-2', 'ring-red-500/50', 'bg-red-500/10');
+                    setTimeout(() => {
+                        container.classList.remove('ring-2', 'ring-red-500/50', 'bg-red-500/10');
+                    }, 2000);
+                }
+                return; // Stop here
+            }
+
+            // Kill current modal immediately to prevent layering issues
+            const currentModal = document.getElementById('applyModal');
+            if (currentModal) {
+                currentModal.classList.add('hidden');
+                currentModal.classList.remove('flex');
+            }
+
+            const managementId = "OC-" + Math.random().toString(36).substring(2, 9).toUpperCase();
+            
+            const sModal = document.getElementById('successModal');
+            const sBackdrop = document.getElementById('successBackdrop');
+            const sContent = document.getElementById('successContent');
+            const idDisplay = document.getElementById('successIdDisplay');
+
+            if (idDisplay) idDisplay.textContent = managementId;
+            
+            if (sModal) {
+                sModal.classList.remove('hidden');
+                sModal.classList.add('flex');
+            }
+
+            // Sync language one last time for success message
+            const lang = localStorage.getItem('lang') || 'en';
+            setLanguage(lang);
+
+            setTimeout(() => {
+                if(sBackdrop) sBackdrop.classList.remove('opacity-0');
+                if(sBackdrop) sBackdrop.classList.add('opacity-100');
+                if(sContent) {
+                    sContent.classList.remove('opacity-0', 'translate-y-8');
+                    sContent.classList.add('opacity-100', 'translate-y-0');
+                }
+            }, 10);
+        }
+
+        function closeSuccessModal() {
+            const sModal = document.getElementById('successModal');
+            const sBackdrop = document.getElementById('successBackdrop');
+            const sContent = document.getElementById('successContent');
+            
+            sBackdrop.classList.add('opacity-0');
+            sContent.classList.add('opacity-0', 'translate-y-8');
+            
+            setTimeout(() => {
+                sModal.classList.add('hidden');
+                sModal.classList.remove('flex');
+            }, 500);
+        }
+
+        function magicAutofill() {
+            // Step 1
+            const inputs = document.querySelectorAll('#membershipForm input');
+            inputs.forEach(i => {
+                if (i.type === 'text') i.value = 'TEST DATA';
+                if (i.type === 'email') i.value = 'test@oculus.com';
+                if (i.type === 'tel') i.value = '8888 8888';
+                if (i.id.includes('dobMM')) i.value = '01';
+                if (i.id.includes('dobDD')) i.value = '01';
+                if (i.id.includes('dobYYYY')) i.value = '1990';
+                if (i.id === 'invCode') i.value = 'OC-PREMIUM';
+            });
+            
+            // Go to Step 3 directly for testing
+            goToStep(3);
+        }
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('login-user').value;
+            const pass = document.getElementById('login-pass').value;
+            if(pass.length === 8) {
+                // Store simple state for mockup
+                localStorage.setItem('oculus_user', user);
+                localStorage.setItem('oculus_auth', 'true');
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Password must be exactly 8 digits.');
+            }
+        }
+        // Translation System
+        const translations = {
+            es: {
+                nav_inicio: "Inicio",
+                nav_beneficios: "Beneficios",
+                nav_membresia: "Membresía",
+                nav_dashboard: "Partners",
+                nav_signin: "Acceder",
+                invite_only: "Por Invitación Solamente",
+                hero_title: "EL ARTE DEL <br> <span class=\"text-[#d2b581]\">ACCESO ABSOLUTO.</span>",
+                hero_desc: "OCULUS CARD ES LA MEMBRESIA DEFINITIVA DE ESTILO DE VIDA.<br>ACCESO PRIVILEGIADO, BENEFICIOS IMBATIBLES<br>Y EXPERIENCIAS EXCLUSIVAS.",
+                btn_solicitar: "SOLICITAR INVITACIÓN",
+                btn_beneficios: "Ver Beneficios",
+                ben_title: "Una Membresía. <br> <span class=\"text-[#d2b581] italic\">Beneficios Ilimitados.</span>",
+                ben1_title: "Gastronomía",
+                ben1_desc: "Reservas prioritarias, degustaciones de cortesía y eventos exclusivos en los mejores restaurantes del país.",
+                ben2_title: "Experiencias",
+                ben2_desc: "Tarifas preferenciales, upgrades constantes y acceso a los hoteles boutique más cautivadores del mundo.",
+                ben3_title: "Lifestyle",
+                ben3_desc: "Acceso a eventos VIP, servicios de conserjería personalizados y una red de privilegios sin fronteras.",
+                apply_title: "Solicita <span class=\"text-[#d2b581]\">Acceso</span>",
+                apply_desc: "Oculus Card opera estrictamente por invitación o postulación directa.<br>Envía tu solicitud para ser considerado por nuestro comité de membresías.",
+                btn_apply: "Solicitar invitación",
+                form_title: "Solicitud de Membresía",
+                form_desc: "Oculus Card opera estrictamente por invitación. Por favor proporcione sus detalles profesionales.",
+                modal_signin_title: "Acceder",
+                modal_signin_sub: "Acceda a su panel privado",
+                label_username: "Usuario",
+                label_password: "Password (8 dígitos)",
+                btn_login: "Entrar al Portal",
+                form_step1: "Paso 1 de 3: Miembro Principal",
+                form_fname: "Nombre",
+                form_lname: "Apellido",
+                form_email: "Correo Profesional",
+                form_id_country: "País de Emisión",
+                form_select_country: "Seleccionar País",
+                form_id_num: "Número de ID / Pasaporte",
+                form_company: "Empresa",
+                form_role: "Cargo / Rol",
+                form_phone: "Número de Teléfono",
+                form_dob: "Fecha de Nacimiento",
+                form_invcode: "Código de Invitación (Si aplica)",
+                form_continue: "Continuar",
+                form_step2: "Paso 2 de 3: Tarjeta Secundaria (+1)",
+                form_back: "Volver",
+                form_secondary_desc: "Tu membresía incluye una tarjeta secundaria de cortesía para un socio o pareja.",
+                form_email_sec: "Correo Electrónico",
+                form_step3: "Paso 3 de 3: Pago Seguro",
+                form_shipping_title: "Dirección de Entrega",
+                form_address: "Dirección",
+                form_apt: "Apto / Suite",
+                form_city: "Ciudad",
+                form_state: "Estado / Provincia",
+                form_zip: "Código Postal",
+                form_country_bill: "País",
+                form_same_address: "La dirección de facturación es la misma que la de entrega",
+                form_billing_only: "Dirección de Facturación",
+                form_payment_title: "Detalles de Pago Seguro",
+                form_card_name: "Nombre en la Tarjeta",
+                form_card_num: "Número de Tarjeta",
+                form_card_exp: "Expiración",
+                form_card_cvc: "CVC",
+                form_auto_renew: "Activar la renovación automática de la membresía",
+                form_disclosure: "Al ser aprobado, se le cobrará US$149.99 + impuestos, que incluye su primer año de membresía. Puede cancelar después de su término inicial en cualquier momento.",
+                form_terms_check: "Al marcar esta casilla, confirmo que acepto los <a href='terms.html' class='text-[#d2b581] underline hover:text-white transition-colors' target='_blank'>Términos de Membresía</a>. Entiendo que si mi solicitud es aprobada, se me cobrarán US$149.99+impuestos.",
+                form_submit: "Enviar Postulación",
+                form_secure: "Seguro & Confidencial",
+                success_title: "¡Solicitud Recibida!",
+                success_desc: "Su petición ha sido recibida satisfactoriamente. Recibirá un correo de confirmación con el número de gestión asignado. Para su tranquilidad, no se realizará ningún cargo hasta que su petición sea aprobada.",
+                btn_finish: "Finalizar",
+                landing_ben2_name: "Experiencias",
+                modal_dining_title: "Gastronomía Exclusiva",
+                modal_dining_sub: "Nuestros restaurantes y aliados del más alto nivel.",
+                modal_exp_title: "Experiencias Destacadas",
+                modal_exp_sub: "Nuestra selección de hoteles boutique y destinos cautivadores.",
+                modal_life_title: "Estilo de Vida",
+                modal_life_sub: "Privilegios exclusivos y servicios personalizados para nuestros miembros."
+            },
+            en: {
+                nav_inicio: "Home",
+                nav_beneficios: "Benefits",
+                nav_membresia: "Membership",
+                nav_dashboard: "Partners",
+                nav_signin: "Sign In",
+                invite_only: "By Invitation Only",
+                hero_title: "THE ART OF <br> <span class=\"text-[#d2b581]\">ABSOLUTE ACCESS.</span>",
+                hero_desc: "OCULUS CARD IS THE DEFINITIVE LIFESTYLE MEMBERSHIP.<br>PRIVILEGED ACCESS, UNBEATABLE BENEFITS<br>AND EXCLUSIVE EXPERIENCES.",
+                btn_solicitar: "REQUEST INVITATION",
+                btn_beneficios: "See Benefits",
+                ben_title: "One Membership. <br> <span class=\"text-[#d2b581] italic\">Unlimited Benefits.</span>",
+                ben1_title: "Dining",
+                ben1_desc: "Priority reservations, complimentary tastings, and exclusive events in the country's best restaurants.",
+                ben2_title: "Experiences",
+                ben2_desc: "Preferential rates, consistent upgrades, and access to the world's most captivating boutique hotels.",
+                ben3_title: "Lifestyle",
+                ben3_desc: "Access to VIP events, personalized concierge services, and a network of privileges without borders.",
+                apply_title: "Request <span class=\"text-[#d2b581]\">Access</span>",
+                apply_desc: "Oculus Card operates strictly by invitation or direct application.<br>Submit your application to be considered by our membership committee.",
+                btn_apply: "Request Invitation",
+                form_title: "Membership Application",
+                form_desc: "Oculus Card operates on a strict invitation-only basis. Please provide your professional details.",
+                form_step1: "Step 1 of 3: Primary Member",
+                form_fname: "First Name",
+                form_lname: "Last Name",
+                form_email: "Professional Email",
+                form_id_country: "Issuing Country",
+                form_select_country: "Select Country",
+                form_id_num: "ID / Passport Number",
+                form_company: "Company",
+                form_role: "Title / Role",
+                form_phone: "Phone Number",
+                form_dob: "Date of Birth",
+                form_invcode: "Invitation Code (If applicable)",
+                form_continue: "Continue",
+                form_step2: "Step 2 of 3: Secondary Card (+1)",
+                form_back: "Back",
+                form_secondary_desc: "Your membership includes a complimentary secondary card for a partner or associate.",
+                form_email_sec: "Email",
+                form_step3: "Step 3 of 3: Secure Payment",
+                form_shipping_title: "Delivery Address",
+                form_address: "Street Address",
+                form_apt: "Apt / Suite",
+                form_city: "City",
+                form_state: "State / Province",
+                form_zip: "Postal Code",
+                form_country_bill: "Country",
+                form_same_address: "Billing address is the same as delivery address",
+                form_billing_only: "Billing Address",
+                form_payment_title: "Secure Payment Details",
+                landing_ben2_name: "Experiences",
+                form_card_name: "Name on Card",
+                form_card_num: "Card Number",
+                form_card_exp: "Expiration",
+                form_card_cvc: "CVC",
+                form_auto_renew: "Enable automatic membership renewal",
+                form_disclosure: "Upon approval, you will be charged US$149.99 + TAXES, which includes your first year of Membership. You can cancel after your initial term.",
+                form_terms_check: "By checking this box, I confirm that I accept the <a href='terms.html' class='text-[#d2b581] underline hover:text-white transition-colors' target='_blank'>Terms of Membership</a>. I understand that US$149.99+taxes will be charged.",
+                form_submit: "Submit Application",
+                form_secure: "Secure & Confidential",
+                success_title: "Request Received!",
+                success_desc: "Your request has been received successfully. You will receive a confirmation email with the assigned management number. For your peace of mind, no charges will be made until your request is approved.",
+                btn_finish: "Finish",
+                landing_ben2_name: "Experiences",
+                modal_dining_title: "Exclusive Dining",
+                modal_dining_sub: "Our top-tier restaurants and partners.",
+                modal_exp_title: "Featured Experiences",
+                modal_exp_sub: "Our selection of boutique hotels and captivating destinations.",
+                modal_life_title: "Lifestyle",
+                modal_life_sub: "Exclusive privileges and personalized services for our members.",
+                modal_signin_title: "Sign In",
+                modal_signin_sub: "Access your private member dashboard",
+                label_username: "Username",
+                label_password: "Password (8 digits)",
+                btn_login: "Enter Portal"
+            },
+            it: {
+                nav_inicio: "Inizio",
+                landing_ben2_name: "Esperienze",
+                nav_beneficios: "Vantaggi",
+                nav_membresia: "Affiliazione",
+                nav_dashboard: "Partner",
+                nav_signin: "Accedi",
+                invite_only: "Solo Su Invito",
+                hero_title: "L'ARTE DELL' <br> <span class=\"text-[#d2b581]\">ACCESSO ASSOLUTO.</span>",
+                hero_desc: "OCULUS CARD È L'AFFILIAZIONE DEFINITIVA ALLO STILE DI VITA.<br>ACCESSO PRIVILEGIATO, VANTAGGI IMBATTIBILI<br>ED ESPERIENZE ESCLUSIVE.",
+                btn_solicitar: "RICHIEDI INVITO",
+                btn_beneficios: "Vedi Vantaggi",
+                ben_title: "Un'Affiliazione. <br> <span class=\"text-[#d2b581] italic\">Vantaggi Illimitati.</span>",
+                ben1_title: "Ristorazione",
+                ben1_desc: "Prenotazioni prioritarie, degustazioni gratuite ed eventi culinari esclusivi nei migliori ristoranti del paese.",
+                ben2_title: "Esperienze",
+                ben2_desc: "Tariffe preferenziali, upgrade costanti e accesso ai boutique hotel più affascinanti del mondo.",
+                ben3_title: "Stile di Vita",
+                ben3_desc: "Accesso a eventi VIP, servizi di concierge personalizzati e una rete di privilegi senza frontiere.",
+                apply_title: "Richiedi <span class=\"text-[#d2b581]\">Accesso</span>",
+                apply_desc: "Oculus Card opera rigorosamente su invito o candidatura directa.<br>Invia la tua domanda per essere valutato dal nostro comitato di affiliazione.",
+                btn_apply: "Richiedi Invito",
+                form_title: "Domanda di Affiliazione",
+                form_desc: "Oculus Card opera rigorosamente su invito. Si prega di fornire i propri details professionales.",
+                form_step1: "Passo 1 di 3: Membro Principale",
+                form_fname: "Nome",
+                form_lname: "Cognome",
+                form_email: "Email Professionale",
+                form_id_country: "Paese di emissione",
+                form_select_country: "Seleziona Paese",
+                form_id_num: "Numero ID / Pasaporte",
+                form_company: "Azienda",
+                form_role: "Titolo / Ruolo",
+                form_phone: "Numero di Telefono",
+                form_dob: "Data di nascita",
+                form_invcode: "Codice Invito (Se aplicabile)",
+                form_continue: "Continua",
+                form_step2: "Passo 2 di 3: Carta Secondaria (+1)",
+                form_back: "Indietro",
+                form_secondary_desc: "La tua affiliazione include una carta secondaria gratuita per un partner o socio.",
+                form_email_sec: "Email",
+                form_step3: "Passo 3 di 3: Pagamento Sicuro",
+                form_shipping_title: "Indirizzo di consegna",
+                form_address: "Indirizzo",
+                form_apt: "Apt / Suite",
+                form_city: "Città",
+                form_state: "Stato / Provincia",
+                form_zip: "Codice Postale",
+                form_country_bill: "Paese",
+                form_same_address: "L'indirizzo di fatturazione è lo mismo dell'indirizzo di consegna",
+                form_billing_only: "Indirizzo di fatturazione",
+                form_payment_title: "Dettagli del pagamento sicuro",
+                form_card_name: "Nome sulla carta",
+                form_card_num: "Numero di carta",
+                form_card_exp: "Scadenza",
+                form_card_cvc: "CVC",
+                form_auto_renew: "Attiva il rinnovo automatico dell'affiliazione",
+                form_disclosure: "Dopo l'approvazione, ti verranno addebitati US$149.99 + TAX, che include il tuo primo año de affiliazione.",
+                form_terms_check: "Selezionando questa casella, confirmo de accettare i <a href='terms.html' class='text-[#d2b581] underline hover:text-white transition-colors' target='_blank'>Termini di Affiliazione</a>. Comprendo que verranno addebitati US$149.99+tasse.",
+                form_submit: "Invia Domanda",
+                form_secure: "Sicuro & Riservato",
+                success_title: "Richiesta Ricevuta!",
+                success_desc: "La sua richiesta è stata ricevuta con successo. Riceverà un'e-mail di conferma con il numero di gestione assegnato. Per la sua tranquillità, nessun addebito sarà effettuato fino a quando la sua richiesta non sarà approvata.",
+                btn_finish: "Fine",
+                landing_ben2_name: "Esperienze",
+                modal_dining_title: "Ristorazione Esclusiva",
+                modal_dining_sub: "I nostri ristoranti e partner di alto livello.",
+                modal_exp_title: "Esperienze In Evidenza",
+                modal_exp_sub: "La nostra selezione di boutique hotel e destinazioni affascinanti.",
+                modal_life_title: "Stile di Vita",
+                modal_life_sub: "Privilegi esclusivi e servizi personalizzati per i nostri membri.",
+                modal_signin_title: "Accedi",
+                modal_signin_sub: "Accedi al tuo pannello privato",
+                label_username: "Utente",
+                label_password: "Password (8 cifre)",
+                btn_login: "Entra nel Portale"
+            }
+        };
+
+        function setLanguage(lang) {
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem('lang', lang);
+            }
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            ['en', 'es', 'it'].forEach(l => {
+                const el = document.getElementById('lang-' + l);
+                if (el) {
+                    if (l === lang) {
+                        el.classList.add('text-white');
+                        el.classList.remove('text-zinc-500');
+                    } else {
+                        el.classList.remove('text-white');
+                        el.classList.add('text-zinc-500');
+                    }
+                }
+            });
+        }
+
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+    </script>
+    <!-- MASTER MODALS: DINING, EXPERIENCES, LIFESTYLE -->
+
+    <!-- Dining Modal -->
+    <div id="dining-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-md opacity-0 transition-opacity duration-500">
+        <div class="relative w-full max-w-2xl bg-[#0a0a0a] border border-[#222] p-8 md:p-14 shadow-2xl transform scale-95 transition-transform duration-500 mx-4" id="dining-modal-content">
+            <button onclick="closeModal('dining-modal')" class="absolute top-6 right-6 text-zinc-600 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="w-12 h-[1px] bg-[#d2b581] mb-6"></div>
+            <h3 class="font-serif text-3xl md:text-4xl text-white mb-2" data-i18n="modal_dining_title">Gastronomía Exclusiva</h3>
+            <p class="text-zinc-500 text-sm font-normal mb-10 pb-6 border-b border-[#222]" data-i18n="modal_dining_sub">Nuestros restaurantes y aliados del más alto nivel.</p>
+            <div class="space-y-2">
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">L'Olivo Alta Cucina</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Escazú</p>
+                        <p class="text-zinc-400 text-sm font-normal">Italiano refinado de especialidad.</p>
+                    </div>
+                </div>
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">Pescatore</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Escazú</p>
+                        <p class="text-zinc-400 text-sm font-normal">Mariscos de alta gama y ambiente corporativo.</p>
+                    </div>
+                </div>
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">Furca</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Sabana / Rohrmoser</p>
+                        <p class="text-zinc-400 text-sm font-normal">Gastronomía de autor y cortes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Experiences Modal -->
+    <div id="experiences-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-md opacity-0 transition-opacity duration-500">
+        <div class="relative w-full max-w-2xl bg-[#0a0a0a] border border-[#222] p-8 md:p-14 shadow-2xl transform scale-95 transition-transform duration-500 mx-4" id="experiences-modal-content">
+            <button onclick="closeModal('experiences-modal')" class="absolute top-6 right-6 text-zinc-600 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="w-12 h-[1px] bg-[#d2b581] mb-6"></div>
+            <h3 class="font-serif text-3xl md:text-4xl text-white mb-2" data-i18n="modal_exp_title">Experiencias Destacadas</h3>
+            <p class="text-zinc-500 text-sm font-normal mb-10 pb-6 border-b border-[#222]" data-i18n="modal_exp_sub">Nuestra selección de hoteles boutique y destinos cautivadores.</p>
+            <div class="space-y-2">
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">Kura Design Villas</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Uvita</p>
+                        <p class="text-zinc-400 text-sm font-normal">Minimalismo tropical y vistas infinitas al Pacífico.</p>
+                    </div>
+                </div>
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">Nayara Tented Camp</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Arenal</p>
+                        <p class="text-zinc-400 text-sm font-normal">Inmersión de lujo en la selva con vistas al volcán.</p>
+                    </div>
+                </div>
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">Hotel Silvestre</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Nosara</p>
+                        <p class="text-zinc-400 text-sm font-normal">Santuario de bienestar y diseño consciente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lifestyle Modal -->
+    <div id="lifestyle-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-md opacity-0 transition-opacity duration-500">
+        <div class="relative w-full max-w-2xl bg-[#0a0a0a] border border-[#222] p-8 md:p-14 shadow-2xl transform scale-95 transition-transform duration-500 mx-4" id="lifestyle-modal-content">
+            <button onclick="closeModal('lifestyle-modal')" class="absolute top-6 right-6 text-zinc-600 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="w-12 h-[1px] bg-[#d2b581] mb-6"></div>
+            <h3 class="font-serif text-3xl md:text-4xl text-white mb-2" data-i18n="modal_life_title">Estilo de Vida</h3>
+            <p class="text-zinc-500 text-sm font-normal mb-10 pb-6 border-b border-[#222]" data-i18n="modal_life_sub">Privilegios exclusivos y servicios personalizados para nuestros miembros.</p>
+            <div class="space-y-2">
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">Baja Helispa</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Transporte Aéreo</p>
+                        <p class="text-zinc-400 text-sm font-normal">Traslados en helicóptero y experiencias aéreas a medida.</p>
+                    </div>
+                </div>
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">M-Club Concierge</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Servicios VIP</p>
+                        <p class="text-zinc-400 text-sm font-normal">Asistencia personal 24/7 y gestión de estilo de vida.</p>
+                    </div>
+                </div>
+                <div class="group/item flex justify-between items-center p-4 hover:bg-[#111] border-l-2 border-transparent hover:border-[#d2b581] transition-all duration-300 cursor-pointer">
+                    <div>
+                        <h4 class="text-white text-lg font-serif group-hover/item:text-[#d2b581] transition">Face & Body</h4>
+                        <p class="text-[10px] tracking-widest text-zinc-500 uppercase mt-1 mb-2">Bienestar</p>
+                        <p class="text-zinc-400 text-sm font-normal">Cuidados estéticos y medicina regenerativa de vanguardia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div id="signin-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/80 backdrop-blur-xl opacity-0 transition-opacity duration-500">
+        <div class="relative w-full max-w-md bg-[#0a0a0a] border border-[#d2b581]/20 p-8 md:p-12 shadow-2xl transform scale-95 transition-transform duration-500 mx-4" id="signin-modal-content">
+            <button onclick="closeModal('signin-modal')" class="absolute top-6 right-6 text-zinc-600 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="flex flex-col items-center text-center mb-10">
+                <div class="w-12 h-[1px] bg-[#d2b581] mb-6"></div>
+                <h3 class="font-serif text-3xl text-white mb-2" data-i18n="modal_signin_title">Sign In</h3>
+                <p class="text-zinc-500 text-sm font-normal tracking-wide" data-i18n="modal_signin_sub">Access your private member dashboard</p>
+            </div>
+            <form id="signin-form" onsubmit="handleLogin(event)" class="space-y-6">
+                <div>
+                    <label class="block text-[10px] tracking-[0.3em] text-[#d2b581] uppercase mb-3 font-semibold" data-i18n="label_username">Username</label>
+                    <input type="text" id="login-user" required class="w-full bg-white/5 border border-white/10 px-4 py-4 text-white font-sans text-sm focus:outline-none focus:border-[#d2b581]/50 transition rounded-none">
+                </div>
+                <div>
+                    <label class="block text-[10px] tracking-[0.3em] text-[#d2b581] uppercase mb-3 font-semibold" data-i18n="label_password">Password (8 digits)</label>
+                    <input type="password" id="login-pass" required maxlength="8" minlength="8" class="w-full bg-white/5 border border-white/10 px-4 py-4 text-white font-sans text-sm tracking-widest focus:outline-none focus:border-[#d2b581]/50 transition rounded-none">
+                </div>
+                <button type="submit" class="w-full bg-[#d2b581] text-black py-4 text-[13px] font-bold tracking-[0.3em] uppercase hover:bg-white transition-all duration-300 mt-4 rounded-none" data-i18n="btn_login">
+                    Enter Portal
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

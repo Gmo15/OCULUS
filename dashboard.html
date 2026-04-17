@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" class="text-white font-sans antialiased scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Oculus Card - Member Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { 
+            font-family: 'Cinzel', serif !important; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        p, .font-sans { 
+            font-weight: 300; 
+            font-family: 'Outfit', sans-serif !important; 
+        }
+        h1, h2, h3, h4 {
+            font-weight: 400 !important;
+        }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .gold-border { border-color: rgba(210, 181, 129, 0.3); }
+        .stat-card:hover { background: rgba(210, 181, 129, 0.1); border-color: rgba(210, 181, 129, 0.5); transform: translateY(-5px); transition: all 0.4s; }
+        body { overscroll-behavior-y: none; background: #050505; }
+        .shimmer { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); background-size: 200% 100%; animation: shimmer 3s infinite; }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center">
+    
+    <!-- Background Decor -->
+    <div class="fixed inset-0 z-0 opacity-20 pointer-events-none">
+        <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#d2b581] opacity-10 blur-[120px] rounded-full"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#d2b581] opacity-5 blur-[120px] rounded-full"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="w-full sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/5 py-4">
+        <div class="max-w-[1400px] mx-auto px-8 flex justify-between items-center">
+            <a href="index.html"><img src="OCULUS%20HORIZONTAL.svg?v=4" alt="Logo" class="h-10"></a>
+            <div class="flex items-center space-x-8">
+                <div class="hidden md:flex items-center space-x-8 text-[11px] tracking-[0.3em] text-zinc-400 font-semibold uppercase font-sans">
+                    <span id="welcome-user">Welcome, Member</span>
+                    <a href="index.html" onclick="logout()" class="text-[#d2b581] hover:text-white transition">Sign Out</a>
+                </div>
+                <!-- Language -->
+                <div class="flex items-center space-x-3 text-[10px] tracking-widest font-semibold text-zinc-500">
+                    <button onclick="setLang('en')" id="l-en" class="hover:text-white transition">EN</button>
+                    <span>|</span>
+                    <button onclick="setLang('it')" id="l-it" class="hover:text-white transition">IT</button>
+                    <span>|</span>
+                    <button onclick="setLang('es')" id="l-es" class="hover:text-white transition">ES</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-7xl mx-auto px-6 py-16 relative z-10 flex flex-col">
+        
+        <!-- Welcome Header -->
+        <header class="mb-20">
+            <div class="w-16 h-[1px] bg-[#d2b581] mb-6"></div>
+            <h1 class="text-4xl md:text-6xl text-white mb-4 uppercase tracking-tighter" data-i18n="dash_title">Private Member Portal</h1>
+            <p class="text-zinc-500 tracking-[0.2em] uppercase text-xs" data-i18n="dash_subtitle">Real-Time Performance & Benefits</p>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+            <!-- Consumption -->
+            <div class="glass p-10 border border-[#d2b581]/10 stat-card flex flex-col">
+                <span class="text-[10px] tracking-[0.4em] text-zinc-500 uppercase font-semibold mb-4" data-i18n="stat_consumption">Monthly Consumption</span>
+                <div class="flex items-baseline space-x-2">
+                    <span class="text-4xl text-white">$4,280</span>
+                    <span class="text-[11px] text-[#d2b581] uppercase font-sans tracking-wide">.00 USD</span>
+                </div>
+                <div class="mt-6 flex items-center text-[10px] text-zinc-500 tracking-widest uppercase">
+                    <div class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
+                    <span data-i18n="stat_daily">Daily Avg: $142.66</span>
+                </div>
+            </div>
+
+            <!-- Savings -->
+            <div class="glass p-10 border border-[#d2b581]/10 stat-card flex flex-col">
+                <span class="text-[10px] tracking-[0.4em] text-zinc-500 uppercase font-semibold mb-4" data-i18n="stat_savings">Total Accumulated Savings</span>
+                <div class="flex items-baseline space-x-2">
+                    <span class="text-4xl text-[#d2b581]">$1,150</span>
+                    <span class="text-[11px] text-zinc-400 uppercase font-sans tracking-wide">.45 USD</span>
+                </div>
+                <p class="mt-6 text-[10px] text-zinc-400 font-sans leading-relaxed tracking-wider" data-i18n="stat_savings_desc">Based on member-exclusive rates & cashbacks.</p>
+            </div>
+
+            <!-- Membership Info -->
+            <div class="glass p-10 border border-[#d2b581]/10 stat-card flex flex-col bg-gradient-to-br from-white/[0.02] to-transparent">
+                <span class="text-[10px] tracking-[0.4em] text-zinc-500 uppercase font-semibold mb-4" data-i18n="stat_tier">Membership Status</span>
+                <div class="text-2xl text-white uppercase tracking-[0.2em]">Privilege Member</div>
+                <div class="mt-auto pt-6 flex justify-between items-center border-t border-white/5">
+                    <span class="text-[9px] text-zinc-500 tracking-widest uppercase" data-i18n="stat_renew">Renews: Dec 2026</span>
+                    <span class="text-[10px] text-[#d2b581] font-bold" data-i18n="stat_tier_label">Privilege Tier</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Full Directory -->
+        <section class="w-full">
+            <div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4">
+                <h2 class="text-3xl text-white font-normal uppercase tracking-widest" data-i18n="dir_title">Exclusive Directory</h2>
+                <div class="flex space-x-6 text-[11px] tracking-[0.3em] font-bold text-zinc-500 uppercase">
+                    <button onclick="filterDir('all')" class="hover:text-[#d2b581] transition filter-btn active-filter" data-dir="all">All</button>
+                    <button onclick="filterDir('dining')" class="hover:text-[#d2b581] transition filter-btn" data-dir="dining">Dining</button>
+                    <button onclick="filterDir('travel')" class="hover:text-[#d2b581] transition filter-btn" data-dir="travel">Travel</button>
+                    <button onclick="filterDir('lifestyle')" class="hover:text-[#d2b581] transition filter-btn" data-dir="lifestyle">Lifestyle</button>
+                </div>
+            </div>
+
+            <div id="directory-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Data populated via JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Seal -->
+    <footer class="w-full py-20 border-t border-white/5 text-center mt-20">
+        <div class="text-[10px] tracking-[0.5em] text-zinc-600 uppercase mb-4">&copy; 2026 Oculus Card Private Member Network</div>
+        <div class="opacity-20 grayscale"><img src="OCULUS%20HORIZONTAL.svg?v=4" alt="Logo" class="h-8 mx-auto"></div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                dash_title: "Private Member Portal", dash_subtitle: "Real-Time Performance & Benefits",
+                stat_consumption: "Monthly Consumption", stat_daily: "Daily Avg: $142.66",
+                stat_savings: "Total Accumulated Savings", stat_savings_desc: "Based on member-exclusive rates & cashbacks.",
+                stat_tier: "Membership Status", stat_renew: "Renews: Dec 2026", stat_tier_label: "Privilege Tier",
+                dir_title: "Exclusive Directory",
+                cat_dining: "Dining", cat_travel: "Travel", cat_lifestyle: "Lifestyle",
+                ben_label: "Member Benefit:",
+                btn_reserve: "Reserve", btn_portfolio: "Portfolio"
+            },
+            es: {
+                dash_title: "Portal Privado de Socio", dash_subtitle: "Rendimiento y Beneficios en Tiempo Real",
+                stat_consumption: "Consumo Mensual", stat_daily: "Promedio Diario: $142.66",
+                stat_savings: "Ahorro Total Acumulado", stat_savings_desc: "Basado en tarifas exclusivas y cashbacks.",
+                stat_tier: "Estado de Membresía", stat_renew: "Renovación: Dic 2026", stat_tier_label: "Nivel Privilege",
+                dir_title: "Directorio Exclusivo",
+                cat_dining: "Gastronomía", cat_travel: "Viajes", cat_lifestyle: "Estilo de Vida",
+                ben_label: "Beneficio Socio:",
+                btn_reserve: "Reservar", btn_portfolio: "Portafolio"
+            },
+            it: {
+                dash_title: "Portale Privato dei Soci", dash_subtitle: "Prestazioni e Vantaggi in Tempo Reale",
+                stat_consumption: "Consumo Mensile", stat_daily: "Media Giornaliera: $142.66",
+                stat_savings: "Risparmio Totale Accumulato", stat_savings_desc: "Basato su tariffe esclusive e cashback.",
+                stat_tier: "Stato dell'Affiliazione", stat_renew: "Rinnovo: Dic 2026", stat_tier_label: "Livello Privilege",
+                dir_title: "Elenco Esclusivo",
+                cat_dining: "Ristorazione", cat_travel: "Viaggi", cat_lifestyle: "Stile di Vita",
+                ben_label: "Vantaggio Socio:",
+                btn_reserve: "Riserva", btn_portfolio: "Portfolio"
+            }
+        };
+
+        const partners = [
+            { id: 1, cat: 'dining', name: "L'Olivo Alta Cucina", loc: "Escazú", ben: "25% Cashback + Tasting Menu", img: "partner_circle.png", tel: "+506 2289 0000", web: "https://www.facebook.com/lolivoaltacucina/" },
+            { id: 2, cat: 'dining', name: "Pescatore", loc: "Escazú", ben: "Priority Table + 20% Discount", img: "partner_circle.png", tel: "+506 2228 0000", web: "https://pescatorecr.com" },
+            { id: 3, cat: 'dining', name: "Furca Privilege", loc: "Rohrmoser", ben: "Private Chef's Selection Access", img: "partner_circle.png", tel: "+506 2220 0000", web: "https://furcacr.com" },
+            { id: 4, cat: 'travel', name: "Kura Boutique", loc: "Uvita", ben: "Upgraded Villa + Spa Circuit", img: "logo_kura_luxury.png", tel: "+506 2200 1111", web: "https://kuracostarica.com" },
+            { id: 5, cat: 'travel', name: "Nayara Resorts", loc: "Arenal", ben: "Oculus Rates (Save avg $200/night)", img: "partner_circle.png", tel: "+506 2479 0000", web: "https://nayararesorts.com" },
+            { id: 6, cat: 'lifestyle', name: "Baja Blue Yacht", loc: "Papagayo", ben: "Complimentary Sunset Cruise Yearly", img: "card_lifestyle.png", tel: "+506 8800 0000", web: "https://peninsulapapagayo.com/concierge/" },
+            { id: 7, cat: 'lifestyle', name: "HeliJet Costa Rica", loc: "GAM", ben: "15% Off VIP Transfers", img: "partner_circle.png", tel: "+506 2200 2222", web: "https://fly-asp.com" },
+            { id: 8, cat: 'dining', name: "Isolina", loc: "Barrio Escalante", ben: "Complimentary Bottle of Wine", img: "partner_circle.png", tel: "+506 2222 3333", web: "https://isolinarestaurante.com" },
+            { id: 9, cat: 'travel', name: "Hotel Belmar", loc: "Monteverde", ben: "Cloud Forest Experience Included", img: "card_travel.png", tel: "+506 2645 0000", web: "https://hotelbelmar.net" }
+        ];
+
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            renderUI();
+        }
+
+        function renderUI() {
+            const t = translations[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.innerText = t[key];
+            });
+            renderGrid('all');
+        }
+
+        function renderGrid(filter) {
+            const grid = document.getElementById('directory-grid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'all' ? partners : partners.filter(p => p.cat === filter);
+            const t = translations[currentLang];
+
+            filtered.forEach(p => {
+                const card = `
+                    <div class="glass border border-white/5 group overflow-hidden flex flex-col h-full hover:border-[#d2b581]/30 transition-all duration-500">
+                        <!-- Brand Box (Logo) -->
+                        <div class="h-44 flex items-center justify-center p-8 bg-black/40 relative">
+                            <img src="${p.img}" class="max-w-[85%] max-h-[75%] object-contain opacity-50 filter grayscale brightness(200%) contrast(100%) group-hover:opacity-100 group-hover:brightness(0) group-hover:invert transition-all duration-500">
+                            <div class="absolute top-4 right-4 text-[8px] tracking-[0.3em] uppercase text-[#d2b581] border-b border-[#d2b581]/30 pb-1">
+                                ${t['cat_' + p.cat]}
+                            </div>
+                        </div>
+                        
+                        <div class="p-8 flex flex-col flex-grow text-center">
+                            <h3 class="text-xl text-white mb-1 uppercase tracking-tighter">${p.name}</h3>
+                            <p class="text-[9px] tracking-[0.3em] text-zinc-500 uppercase mb-8">${p.loc}</p>
+                            
+                            <div class="flex-grow flex flex-col justify-center border-y border-white/5 py-6 mb-8">
+                                <span class="text-[8px] tracking-[0.2em] text-[#d2b581] uppercase block mb-3 opacity-60">${t.ben_label}</span>
+                                <p class="text-xs text-zinc-300 font-sans italic leading-relaxed">${p.ben}</p>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="mt-auto grid grid-cols-2 gap-4">
+                                <a href="tel:${p.tel}" class="flex items-center justify-center py-3 border border-white/10 text-white text-[9px] tracking-[0.2em] uppercase font-bold hover:bg-white hover:text-black transition duration-300">
+                                    <span data-i18n="btn_reserve">Reserve</span>
+                                </a>
+                                <a href="${p.web}" target="_blank" class="flex items-center justify-center py-3 border border-[#d2b581]/30 text-[#d2b581] text-[9px] tracking-[0.2em] uppercase font-bold hover:bg-[#d2b581] hover:text-black transition duration-300">
+                                    <span data-i18n="btn_portfolio">Portfolio</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        function filterDir(cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('text-[#d2b581]', 'active-filter'));
+            document.querySelector(`[data-dir="${cat}"]`).classList.add('text-[#d2b581]', 'active-filter');
+            renderGrid(cat);
+        }
+
+        function logout() {
+            localStorage.removeItem('oculus_auth');
+            localStorage.removeItem('oculus_user');
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = localStorage.getItem('oculus_user') || 'Oculus Member';
+            document.getElementById('welcome-user').innerText = `Welcome, ${user}`;
+            renderUI();
+        });
+    </script>
+</body>
+</html>

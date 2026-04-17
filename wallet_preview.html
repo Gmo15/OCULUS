@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oculus - Virtual Wallet Card</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --oculus-gold: #d2b581;
+            --oculus-black: #0a0a0a;
+        }
+        body {
+            background-color: #000;
+            font-family: 'Outfit', sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .wallet-card {
+            width: 320px;
+            height: 520px;
+            background: linear-gradient(135deg, #111 0%, #050505 100%);
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 20px rgba(210, 181, 129, 0.05);
+            border: 1px solid rgba(210, 181, 129, 0.2);
+            overflow: hidden;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        /* SHIMMER EFFECT */
+        .wallet-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.03) 45%,
+                rgba(255, 255, 255, 0.08) 50%,
+                rgba(255, 255, 255, 0.03) 55%,
+                transparent 100%
+            );
+            transform: rotate(45deg);
+            animation: shimmer 4s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .wallet-card:hover {
+            transform: translateY(-15px) rotateY(10deg);
+            border-color: rgba(210, 181, 129, 0.4);
+        }
+        .card-header {
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .logo-img {
+            height: 45px;
+            width: auto;
+            margin-bottom: 12px;
+        }
+        .card-body {
+            padding: 24px;
+        }
+        .label {
+            color: #444;
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 3px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .value {
+            font-size: 17px;
+            font-weight: 300;
+            color: #eee;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+        .value-gold {
+            color: var(--oculus-gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .qr-section {
+            background: #000;
+            padding: 12px;
+            border-radius: 15px;
+            margin: 10px auto;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(210, 181, 129, 0.1);
+            position: relative;
+        }
+        
+        /* QR Inner glow */
+        .qr-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 15px;
+            box-shadow: inset 0 0 15px rgba(210, 181, 129, 0.1);
+            pointer-events: none;
+        }
+
+        .qr-img {
+            filter: invert(1) contrast(1.2); /* Makes it stealth/dark-friendly */
+            width: 140px;
+            height: 140px;
+        }
+
+        .footer-tag {
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 6px;
+            color: rgba(210, 181, 129, 0.6);
+            text-transform: uppercase;
+            margin-top: 15px;
+            font-weight: 300;
+        }
+        .apple-wallet-btn {
+            background: #000;
+            border: 1px solid #222;
+            padding: 14px 28px;
+            border-radius: 12px;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+        .apple-wallet-btn:hover {
+            background: #050505;
+            border-color: var(--oculus-gold);
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="font-serif text-xl mb-12 tracking-[0.6em] opacity-40 uppercase">Card Identity Prototype</h1>
+
+    <div class="wallet-card">
+        <div class="card-header !bg-black">
+            <img src="https://antigravity-media.storage.googleapis.com/media__1775707458141.png" alt="Oculus Logo" class="logo-img !h-14 !w-auto">
+            <div class="text-[9px] tracking-[0.5em] text-zinc-600 uppercase font-bold mt-2">Exclusive Founding Member</div>
+        </div>
+        
+        <div class="card-body">
+            <div class="flex justify-between items-start">
+                <div>
+                    <div class="label">Member Identifier</div>
+                    <div class="value">Guillermo G. Carvajal</div>
+                </div>
+                <div class="text-right">
+                    <div class="label">Tier</div>
+                    <div class="value value-gold">Founder</div>
+                </div>
+            </div>
+
+            <div class="qr-section !bg-white">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=OCULUS-FOUNDER-GGC&bgcolor=ffffff&color=000000" alt="Member QR Code" class="qr-img !filter-none">
+            </div>
+
+            <div class="footer-tag">Authentic Identity</div>
+        </div>
+    </div>
+
+    <!-- Official Style Button -->
+    <button class="apple-wallet-btn">
+        <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        <div class="text-left">
+            <div class="text-[8px] uppercase tracking-tighter leading-none opacity-60">Add to</div>
+            <div class="text-sm font-bold leading-none">Apple Wallet</div>
+        </div>
+    </button>
+
+    <div class="mt-8 text-zinc-500 text-[10px] tracking-widest text-center max-w-xs">
+        * This is a design preview. Final cryptographic pass will be delivered via email for secure installation.
+    </div>
+
+</body>
+</html>
